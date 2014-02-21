@@ -16,6 +16,8 @@ package
 		public static var windowWidth:int = 960;
 		public static var FPS:int = 60;
 
+		public static var moveSpeed:Number = 1.5;
+
 		// Input stuff
 		public static var inputKeys:Object = {
 			// The keys for player 0
@@ -34,6 +36,12 @@ package
 			restart: [Key.R, Key.P],
 			mute: [Key.M]
 		};
+
+		public static var paddleWidth:int = 100;
+		public static var paddleHeight:int = 20;
+
+		public static var noPlayers : int = 2;
+		public static var playersStart: Array = [ [520, 50], [520, 960 - paddleWidth - 50] ];
 		
 		public static var EditorKeys:Object = {
 		};
