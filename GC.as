@@ -12,11 +12,10 @@ package
 	import net.flashpunk.graphics.Image;
 	public class GC
 	{
-		public static var windowHeight:int = 540;
-		public static var windowWidth:int = 960;
-		public static var FPS:int = 60;
+		public static const windowHeight:int = 540;
+		public static const windowWidth:int = 960;
+		public static const FPS:int = 60;
 
-		public static var moveSpeed:Number = 1.5;
 
 		// Input stuff
 		public static var inputKeys:Object = {
@@ -36,18 +35,22 @@ package
 			restart: [Key.R, Key.P],
 			mute: [Key.M]
 		};
-
-		public static var paddleWidth:int = 100;
-		public static var paddleHeight:int = 20;
-
-		public static var playerAirDamp:Array = [.9, .9]; //Damping when !onGround
-		public static var playerBounce:Array = [-1, -1, -1]; // [left-wall, right-wall, other-player]
-
-		public static var noPlayers : int = 2;
-		public static var playersStart: Array = [ [50, 520 - paddleHeight], [960 - paddleWidth - 50 , 520 - paddleHeight]];
 		
 		public static var EditorKeys:Object = {
 		};
+
+		public static var ballRadius:int = 5;
+		public static var ballDamp:Array = [1, 1]; // [xDamp, yDamp]
+		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+
+		public static var moveSpeed:Number = 1.5;
+		public static var paddleWidth:int = 100;
+		public static var paddleHeight:int = 20;
+		public static var playerDamp:Array = [.9, .9]; // [xDamp, yDamp]
+		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+
+		public static var noPlayers : int = 2;
+		public static var playersStart: Array = [ [50, 520 - paddleHeight], [960 - paddleWidth - 50 , 520 - paddleHeight]];
 		
 		public function GC ():void
 		{

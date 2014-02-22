@@ -1,7 +1,6 @@
 package
 {
 	import net.flashpunk.Entity;
-	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Sfx;
@@ -12,7 +11,6 @@ package
 		public var vel : Vector.<Number>;
 		public var id : int;
 		public var muted : Boolean;
-
 
 		private var colTypes:Array;
 		public var input : GameInput;
@@ -54,8 +52,8 @@ package
 				vel[0] += GC.moveSpeed;
 			}
 			// Damp the velocity to get smoother movement
-			vel[0] *= GC.playerAirDamp[0];
-			vel[1] *= GC.playerAirDamp[1];
+			vel[0] *= GC.playerDamp[0];
+			vel[1] *= GC.playerDamp[1];
 
 			// Avoid anoying pass by reference
 			var remainingVel : Vector.<Number> = new Vector.<Number>(2, true)
@@ -66,10 +64,8 @@ package
 					// Calculate the proportion of the velocity that didn't include
 					// a bounce this should be less than 1
 					var rightWallIncidenceProportion : Number = 1 - (x + GC.paddleWidth + remainingVel[0] - GC.windowWidth) / remainingVel[0];
-					trace(x, remainingVel[0], leftWallIncidenceProportion, rightWallIncidenceProportion);
 					
 					if (rightWallIncidenceProportion >= 0 && rightWallIncidenceProportion <= 1) {
-						trace("right collided");
 						// We have hit the right wall
 						x += remainingVel[0] * rightWallIncidenceProportion;
 						// bounce, remove the current movement and repeat
@@ -77,7 +73,6 @@ package
 						// Set the velocity for the next frame
 						vel[0] *= GC.playerBounce[1];
 					} else {
-						trace("No collision");
 						// there have been no colisions we just move
 						x += remainingVel[0];
 						remainingVel[0] = 0;
@@ -86,10 +81,8 @@ package
 					// Calculate the proportion of the velocity that didn't include
 					// a bounce this should be less than 1
 					var leftWallIncidenceProportion : Number = 1 - (x + remainingVel[0]) / remainingVel[0];
-					trace(x, remainingVel[0], leftWallIncidenceProportion, rightWallIncidenceProportion);
 
 					if (leftWallIncidenceProportion >= 0 && leftWallIncidenceProportion <= 1) {
-						trace("left collided");
 						// We have hit the left all
 						x += remainingVel[0] * leftWallIncidenceProportion;
 						// bounce, remove the current movement and repeat
@@ -97,7 +90,6 @@ package
 						// Set the velocity for the next frame
 						vel[0] *= GC.playerBounce[0];
 					} else {
-						trace("No collision");
 						// there have been no colisions we just move
 						x += remainingVel[0];
 						remainingVel[0] = 0;

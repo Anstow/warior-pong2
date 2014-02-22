@@ -69,6 +69,8 @@ package
 				players.push(p);
 			}
 
+			add(new Ball([50, 50], [4, -5], 0 != (mode & M_MUTED)));
+
 			input.restart();
 
 			// TODO: reset function
@@ -97,7 +99,57 @@ package
 			return super.add(e);
 		}
 
-		//}
+
+		/*!
+		 * \brief This calculates the first collision (as a proportion of the velocity) of a box with a bounding box of your choice.
+		 *
+		 * \param pos:Array [x,y] The top left corner of the box to collide with
+		 * \param vel:Array [vx, vy] The velocity of the item colliding.
+		 * \param collisionBox:Array [left, right, top, bottom] The inner box to collide with.
+		 * \param boundingBox:Array [left, right, top, bottom] The outer box to collide with.
+		 *
+		 * \return Array [proportionOfVel:Number, side:int] and null if there is no collision. Where
+		 * 		0 is left
+		 * 		1 is right
+		 *		2 is top
+		 * 		3 is bottom
+		 */
+		public static function CalculateCollideTimes(pos:Array, vel:Array, collisionBox:Array, boundingBox:Array = null):Array
+	   	{
+			if (boundingBox == null) boundingBox = [0,GC.windowWidth,0,GC.windowHeight];
+			var collisions:Array = [1,1,1,1,1];
+			if (vel[0]*vel[0] > 0.01) {
+				if (vel[0] < 0) {
+					// Calculate the proportion of the velocity that collides with the left wall
+					collisions[0] = 1 - (pos[0] + collisionBox[0] + vel[0] - boundingBox[0]) / vel[0];
+					if (collisions[0] < 0) collisions[0] = 1;
+				} else { // if (vel[0] > 0)
+					// Calculate the proportion of the velocity that collides with the right wall
+					collisions[1] = 1 - (pos[0] + collisionBox[1] + vel[0] - boundingBox[1]) / vel[0];
+					if (collisions[1] < 0) collisions[1] = 1;
+				}
+			}
+			if (vel[1]*vel[1] > 0.01) {
+				if (vel[1] < 0) {
+					// Calculate the proportion of the velocity that collides with the bottom wall
+					collisions[2] = 1 - (pos[1] + collisionBox[2] + vel[1] - boundingBox[2]) / vel[1];
+					if (collisions[2] < 0) collisions[2] = 1;
+				} else { // if (vel[1] > 0)
+					// Calculate the proportion of the velocity that collides with the top wall
+					collisions[3] = 1 - (pos[1] + collisionBox[3] + vel[1] - boundingBox[3]) / vel[1];
+					if (collisions[3] < 0) collisions[3] = 1;
+				}
+			}
+			var minPosition : int = 4;
+			for (var i:int = 0; i<4; i++) {
+				if (collisions[i] < collisions[minPosition])
+					minPosition = i;
+			}
+			if (minPosition != 4)
+				return [collisions[minPosition], minPosition];
+			else
+				return null;
+		}
 	}
 }
 
