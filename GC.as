@@ -26,7 +26,7 @@ package
 			right0: [Key.D, Key.E],
 			left_target0: [Key.A],
 			right_target0: [Key.D, Key.E],
-			fire0: [Key.S, Key.O],
+			shoot0: [Key.S, Key.O],
 			// The keys for player 1
 			//up1: [Key.UP],
 			//down1: [Key.DOWN],
@@ -34,11 +34,11 @@ package
 			right1: [Key.RIGHT],
 			left_target1: [Key.LEFT],
 			right_target1: [Key.RIGHT],
-			fire1: [Key.DOWN],
+			shoot1: [Key.DOWN],
 
 			// Other used keys
-			skip: [191, 192],
-			editor: [Key.F2],
+			//skip: [191, 192],
+			//editor: [Key.F2],
 			restart: [Key.R, Key.P],
 			mute: [Key.M]
 		};
