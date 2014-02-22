@@ -25,7 +25,7 @@ package
 			// I can't think of anything to collide with at the moment.
 			colTypes = [];
 			// set collide type
-			type = GC.enemies[id].name;
+			type = GC.enemies[id].aiType;
 			speed = GC.enemies[id].speed;
 			aiRepeat = GC.enemies[id].ai_repeat;
 			this.muted = muted;

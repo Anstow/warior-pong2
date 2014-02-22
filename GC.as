@@ -72,9 +72,9 @@ package
 
 		public static var enemies : Array = [
 			{
-				name: "bouncer",
+				aiType: "bouncer",
 				speed: 0.5,
-				ai_repeat: 180, // The ai is re-ran after this many frames passes
+				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [20, 20]
 			}
 		]
