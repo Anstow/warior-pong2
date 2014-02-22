@@ -33,7 +33,7 @@ package
 				}
 			}
 			// set collide type
-			type = "player" + i;
+			type = "player" + id;
 			this.muted = muted;
 			// set possition
 			super(pos[0], pos[1]);
