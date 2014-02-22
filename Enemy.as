@@ -12,6 +12,7 @@ package
 		public var speed : Number;
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
+		private var image : Image;
 
 		private var colTypes:Array;
 
@@ -34,8 +35,10 @@ package
 			// Set the hitbox
 			setHitbox(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1]);
 			// Add sprites
-			// TODO: make these not rubish boxes
-			addGraphic(Image.createRect(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1], 0xFF0000));
+			image = new Image(GC.BOUNCER);
+			image.angle = 180;
+			addGraphic(image);
+			
 			aiCounter = 0;
 			// Set the initial velocity
 			queryAI();

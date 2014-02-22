@@ -15,6 +15,7 @@ package
 
 		public var aimEntity : AimEntity;
 		public var angle : Number = 0;
+		private var image : Image;
 
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
 			// Set the initial velocity of the player
@@ -40,8 +41,8 @@ package
 			// Set the hitbox
 			setHitbox(GC.playerWidth, GC.playerHeight);
 			// Add sprites
-			// TODO: make these not rubish boxes
-			addGraphic(Image.createRect(GC.playerWidth, GC.playerHeight, 0xFF0000));
+			image = new Image(GC.PLAYER);
+			addGraphic(image);
 		}
 		
 		override public function update():void {
@@ -163,7 +164,7 @@ package
 		}
 
 		public function checkCollisions():void {
-			// If we are targetting we don't want to collide with things
+			// If we are targeting we don't want to collide with things
 			if (targetting) return;
 
 			var b :Ball = collide("ball", x, y) as Ball;

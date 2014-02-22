@@ -52,17 +52,17 @@ package
 		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
 		public static var moveSpeed:Number = 1.5;
-		public static var playerWidth:int = 100;
+		public static var playerWidth:int = 70;
 		public static var playerHeight:int = 20;
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
 		public static var targettingAngleChange : Number = 0.1;
 		public static var targettingAngleClamp : Number = Math.PI/3;
-		public static var targettingNo:int = 3;
-		public static var targettingSizes:Array = [ 10, 6, 3.6 ];
-		public static var targettingCenter:Array = [ 0, 15 ];
-		public static var targettingOffsets:Array = [ 21, 35.6 ];
+		public static var targettingNo:int = 3; // no. of targeting circles?
+		public static var targettingSizes:Array = [ 5, 3, 2 ]; // radius for the targeting circles in pixels
+		public static var targettingCenter:Array = [ 0, 10 ]; // centre of bottom targeting circle relative to top centre of paddle
+		public static var targettingOffsets:Array = [ 18, 32 ]; // offsets between the centre of circles starting from the bottom
 
 		public static var noPlayers : int = 2;
 		public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
@@ -75,9 +75,17 @@ package
 				aiType: "bouncer",
 				speed: 0.5,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
-				hitbox: [20, 20]
+				hitbox: [18, 20]
 			}
-		]
+		];
+		
+		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
+		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
+		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class;
+		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class;
+		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
+		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
+
 		
 		public function GC ():void
 		{

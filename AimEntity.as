@@ -7,13 +7,20 @@ package
 	public class AimEntity extends Entity
 	{
 		public var targets : Vector.<Graphic>;
+		private var image : Image;
 
 		public function AimEntity(pos:Array) {
 			super();
 			setPos(pos);
 			targets = new Vector.<Graphic>();
 			for (var i : int = 0; i < GC.targettingNo; i++) {
-				targets.push(Image.createCircle(GC.targettingSizes[i], 0x0000FF));
+				switch (i)
+				{
+					case 0: image = new Image(GC.TARGET_L); break;
+					case 1: image = new Image(GC.TARGET_M); break;
+					case 2: image = new Image(GC.TARGET_S);  break;
+				}
+				targets.push(image);
 				addGraphic(targets[i]);
 			}
 			setAngle(0);
