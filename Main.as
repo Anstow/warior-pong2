@@ -12,7 +12,7 @@ package
 			super(GC.windowWidth, GC.windowHeight, GC.FPS, true);
 			FP.console.enable();
 			//FP.world = new TitleScreen();
-			//FP.world = new Level(changeWorld);
+			FP.world = new Level(changeWorld);
 		}
 		
 		public function changeWorld(world : World) : void {

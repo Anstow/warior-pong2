@@ -19,7 +19,6 @@ package
 		// Record
 		public static const M_RECORD:int = 16;
 
-		public var nPlayers:int = 2;
 		public var players:Array = [];
 		private var input:GameInput;
 
@@ -27,9 +26,10 @@ package
 		private var mode:int;
 		private var loadLevelCallback:Function;
 
-		public function Level (data:Object, mode:int=0, loadLevelCallback:Function = null) {
+		public function Level (loadLevelCallback:Function = null, mode:int=0, replayData:Object = null) {
 			// The game input is defined here 0 is the normal mode
 			this.mode = mode;
+			// check if we a running in buffered mode if so we write to a buffer
 			if (mode & M_BUFFERED) {
 				worldBuffer = new BitmapData(FP.width, FP.height, false, 0xFF202020);
 			}
@@ -38,8 +38,8 @@ package
 			// record.
 			if (mode & M_PLAYBACK) {
 				input = new GameInput(GameInput.PLAYBACK);
-				if (data.replay !== undefined) {
-					input.loadPlaybackData(data.replay);
+				if (replayData.replay !== undefined) {
+					input.loadPlaybackData(replayData.replay);
 				}
 			} else if (mode & M_RECORD) {
 				input = new GameInput(GameInput.RECORD);
@@ -51,18 +51,20 @@ package
 			add(input);
 
 			this.loadLevelCallback = loadLevelCallback;	
+			reset();
 		}
 
-		public function reset()
+		public function reset():void
 		{
-			for (var i:int = 0; i < GC.noPlayers; i++) {
-				remove(p);
-			}
-			players.empty();
-
 			var p:Player;
-			for (var i:int = 0; i < GC.noPlayers; i++) {
+			while(players.length > 0) {
+				p = players.pop();
+				if (p) remove(p);
+			}
+
+			for (var i : int = 0; i < GC.noPlayers; i++) {
 				p = new Player(i, GC.playersStart[i], input, 0 != (mode & M_MUTED));
+				trace("player" + i + " added");
 				add(p);
 				players.push(p);
 			}
