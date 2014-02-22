@@ -37,6 +37,8 @@ package
 			this.muted = muted;
 			// set possition
 			super(pos[0], pos[1]);
+			// Set the hitbox
+			setHitbox(GC.playerWidth, GC.playerHeight);
 			// Add sprites
 			// TODO: make these not rubish boxes
 			addGraphic(Image.createRect(GC.playerWidth, GC.playerHeight, 0xFF0000));
@@ -47,6 +49,7 @@ package
 
 			checkInput();
 			updateSim();
+			checkCollisions(); // this may be a misnomer updateSim also does a fair bit of collision checking.
 		}
 
 		public function checkInput():void {
@@ -83,7 +86,7 @@ package
 				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.playerWidth,0, GC.playerHeight]);
 				if (collisionData) {
 					// We have collided so move to the colision point
-					moveBy(remainingVel[0]*collisionData[0], remainingVel[1]*collisionData[0], colTypes);
+					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
 					switch (collisionData[1])
 					{
 						case 0:
@@ -120,13 +123,12 @@ package
 							break;
 						default:
 							// Ok this shouldn't have happened lets pretend it didn't and just update normally
-							moveBy(remainingVel[0], remainingVel[1], colTypes);
 							remainingVel = [0,0];
 							break;
 					}
 				} else {
 					// We haven't collided
-					moveBy(remainingVel[0], remainingVel[1], colTypes);
+					x += remainingVel[0]; y += remainingVel[1];
 					remainingVel = [0,0];
 				}
 			}
@@ -145,6 +147,17 @@ package
 			} else if (y + GC.playerHeight > GC.windowHeight) {
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
+			}
+		}
+
+		public function checkCollisions():void {
+			// If we are targetting we don't want to collide with things
+			if (targetting) return;
+
+			var b :Ball = collide("ball", x, y) as Ball;
+			if (b) {
+				targetting = true;
+				world.remove(b);
 			}
 		}
 	}

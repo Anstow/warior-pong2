@@ -27,8 +27,10 @@ package
 			this.muted = muted;
 			// set possition
 			super(pos[0], pos[1]);
+			// Set the hitbox
+			setHitbox(GC.ballRadius*2, GC.ballRadius*2);
 			// Add sprites
-			// TODO: make these not rubish circles
+			// TODO: make that are not rubish circles
 			addGraphic(Image.createCircle(GC.ballRadius, 0x00FF00));
 		}
 		
