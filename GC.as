@@ -44,13 +44,13 @@ package
 		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
 		public static var moveSpeed:Number = 1.5;
-		public static var paddleWidth:int = 100;
-		public static var paddleHeight:int = 20;
+		public static var playerWidth:int = 100;
+		public static var playerHeight:int = 20;
 		public static var playerDamp:Array = [.9, .9]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
 		public static var noPlayers : int = 2;
-		public static var playersStart: Array = [ [50, 520 - paddleHeight], [960 - paddleWidth - 50 , 520 - paddleHeight]];
+		public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 		
 		public function GC ():void
 		{

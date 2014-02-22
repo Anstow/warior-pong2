@@ -41,7 +41,7 @@ package
 			// Avoid anoying pass by reference
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
-			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.001) {
+			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
 				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.ballRadius*2,0, GC.ballRadius*2]);
 				if (collisionData) {
 					// We have collided so move to the colision point
@@ -91,6 +91,21 @@ package
 					moveBy(remainingVel[0], remainingVel[1], colTypes);
 					remainingVel = [0,0];
 				}
+			}
+			// Resorting to terrible clampling
+			if (x < 0) {
+				x = 0;
+				vel[0] *= -1;
+			} else if (x + GC.playerWidth > GC.windowWidth) {
+				x = GC.windowWidth - GC.playerWidth - 1;
+				vel[0] *= -1;
+			}
+			if (y < 0) {
+				y = 0;
+				vel[1] *= -1;
+			} else if (y + GC.playerHeight > GC.windowHeight) {
+				y = GC.windowHeight - GC.playerHeight - 1;
+				vel[1] *= -1;
 			}
 		}
 

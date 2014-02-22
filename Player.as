@@ -38,7 +38,7 @@ package
 			super(pos[0], pos[1]);
 			// Add sprites
 			// TODO: make these not rubish boxes
-			addGraphic(Image.createRect(GC.paddleWidth, GC.paddleHeight, 0xFF0000));
+			addGraphic(Image.createRect(GC.playerWidth, GC.playerHeight, 0xFF0000));
 		}
 		
 		override public function update():void {
@@ -56,45 +56,73 @@ package
 			vel[1] *= GC.playerDamp[1];
 
 			// Avoid anoying pass by reference
-			var remainingVel : Vector.<Number> = new Vector.<Number>(2, true)
-			remainingVel[0] = vel[0]; remainingVel[1] = vel[1];
+			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
-			while (remainingVel[0]*remainingVel[0] > 0.01) {
-				if (remainingVel[0] > 0) {
-					// Calculate the proportion of the velocity that didn't include
-					// a bounce this should be less than 1
-					var rightWallIncidenceProportion : Number = 1 - (x + GC.paddleWidth + remainingVel[0] - GC.windowWidth) / remainingVel[0];
-					
-					if (rightWallIncidenceProportion >= 0 && rightWallIncidenceProportion <= 1) {
-						// We have hit the right wall
-						x += remainingVel[0] * rightWallIncidenceProportion;
-						// bounce, remove the current movement and repeat
-						remainingVel[0] *= GC.playerBounce[1] * (1 - rightWallIncidenceProportion);
-						// Set the velocity for the next frame
-						vel[0] *= GC.playerBounce[1];
-					} else {
-						// there have been no colisions we just move
-						x += remainingVel[0];
-						remainingVel[0] = 0;
+			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.5) {
+				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.playerWidth,0, GC.playerHeight]);
+				if (collisionData) {
+					// We have collided so move to the colision point
+					moveBy(remainingVel[0]*collisionData[0], remainingVel[1]*collisionData[0], colTypes);
+					switch (collisionData[1])
+					{
+						case 0:
+							// We have hit the left wall
+							// bounce, remove the current movement and repeat
+							remainingVel[0] *= GC.playerBounce[0] * (1 - collisionData[0]);
+							remainingVel[1] *= (1 - collisionData[0]);
+							// Set the velocity for the next frame
+							vel[0] *= GC.playerBounce[0];
+							break;
+						case 1:
+							// We have hit the right wall
+							// bounce, remove the current movement and repeat
+							remainingVel[0] *= GC.playerBounce[1] * (1 - collisionData[0]);
+							remainingVel[1] *= (1 - collisionData[0]);
+							// Set the velocity for the next frame
+							vel[0] *= GC.playerBounce[1];
+							break;
+						case 2:
+							// We have hit the bottom wall
+							// bounce, remove the current movement and repeat
+							remainingVel[0] *= (1 - collisionData[0]);
+							remainingVel[1] *= GC.playerBounce[2] * (1 - collisionData[0]);
+							// Set the velocity for the next frame
+							vel[1] *= GC.playerBounce[2];
+							break;
+						case 3:
+							// We have hit the bottom wall
+							// bounce, remove the current movement and repeat
+							remainingVel[0] *= (1 - collisionData[0]);
+							remainingVel[1] *= GC.playerBounce[3] * (1 - collisionData[0]);
+							// Set the velocity for the next frame
+							vel[1] *= GC.playerBounce[3];
+							break;
+						default:
+							// Ok this shouldn't have happened lets pretend it didn't and just update normally
+							moveBy(remainingVel[0], remainingVel[1], colTypes);
+							remainingVel = [0,0];
+							break;
 					}
-				} else { // if (remainingVel[0] < 0)
-					// Calculate the proportion of the velocity that didn't include
-					// a bounce this should be less than 1
-					var leftWallIncidenceProportion : Number = 1 - (x + remainingVel[0]) / remainingVel[0];
-
-					if (leftWallIncidenceProportion >= 0 && leftWallIncidenceProportion <= 1) {
-						// We have hit the left all
-						x += remainingVel[0] * leftWallIncidenceProportion;
-						// bounce, remove the current movement and repeat
-						remainingVel[0] *= GC.playerBounce[0] * (1 - leftWallIncidenceProportion);
-						// Set the velocity for the next frame
-						vel[0] *= GC.playerBounce[0];
-					} else {
-						// there have been no colisions we just move
-						x += remainingVel[0];
-						remainingVel[0] = 0;
-					}
+				} else {
+					// We haven't collided
+					moveBy(remainingVel[0], remainingVel[1], colTypes);
+					remainingVel = [0,0];
 				}
+			}
+			// Resorting to terrible clampling
+			if (x < 0) {
+				x = 0;
+				vel[0] *= -1;
+			} else if (x + GC.playerWidth > GC.windowWidth) {
+				x = GC.windowWidth - GC.playerWidth - 1;
+				vel[0] *= -1;
+			}
+			if (y < 0) {
+				y = 0;
+				vel[1] *= -1;
+			} else if (y + GC.playerHeight > GC.windowHeight) {
+				y = GC.windowHeight - GC.playerHeight - 1;
+				vel[1] *= -1;
 			}
 		}
 	}

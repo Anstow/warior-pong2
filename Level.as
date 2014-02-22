@@ -117,27 +117,27 @@ package
 		public static function CalculateCollideTimes(pos:Array, vel:Array, collisionBox:Array, boundingBox:Array = null):Array
 	   	{
 			if (boundingBox == null) boundingBox = [0,GC.windowWidth,0,GC.windowHeight];
-			var collisions:Array = [1,1,1,1,1];
+			var collisions:Array = [2,2,2,2,2];
 			if (vel[0]*vel[0] > 0.01) {
 				if (vel[0] < 0) {
 					// Calculate the proportion of the velocity that collides with the left wall
 					collisions[0] = 1 - (pos[0] + collisionBox[0] + vel[0] - boundingBox[0]) / vel[0];
-					if (collisions[0] < 0) collisions[0] = 1;
+					if (collisions[0] < 0 || collisions[0] > 1) collisions[0] = 2;
 				} else { // if (vel[0] > 0)
 					// Calculate the proportion of the velocity that collides with the right wall
 					collisions[1] = 1 - (pos[0] + collisionBox[1] + vel[0] - boundingBox[1]) / vel[0];
-					if (collisions[1] < 0) collisions[1] = 1;
+					if (collisions[1] < 0 || collisions[1] > 1) collisions[1] = 2;
 				}
 			}
 			if (vel[1]*vel[1] > 0.01) {
 				if (vel[1] < 0) {
 					// Calculate the proportion of the velocity that collides with the bottom wall
 					collisions[2] = 1 - (pos[1] + collisionBox[2] + vel[1] - boundingBox[2]) / vel[1];
-					if (collisions[2] < 0) collisions[2] = 1;
+					if (collisions[2] < 0 || collisions[2] > 1) collisions[2] = 2;
 				} else { // if (vel[1] > 0)
 					// Calculate the proportion of the velocity that collides with the top wall
 					collisions[3] = 1 - (pos[1] + collisionBox[3] + vel[1] - boundingBox[3]) / vel[1];
-					if (collisions[3] < 0) collisions[3] = 1;
+					if (collisions[3] < 0 || collisions[3] > 1) collisions[3] = 2;
 				}
 			}
 			var minPosition : int = 4;
