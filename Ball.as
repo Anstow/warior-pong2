@@ -34,6 +34,11 @@ package
 		
 		override public function update():void {
 			super.update();
+
+			updateSim();
+		}
+
+		public function updateSim():void {
 			// Damp the velocity if needed
 			vel[0] *= GC.ballDamp[0];
 			vel[1] *= GC.ballDamp[1];
@@ -93,6 +98,7 @@ package
 				}
 			}
 			// Resorting to terrible clampling
+			// TODO: don't rely on something quite so terrible
 			if (x < 0) {
 				x = 0;
 				vel[0] *= -1;
@@ -107,9 +113,6 @@ package
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
 			}
-		}
-
-		public function attachToPlayer():void {
 		}
 	}
 }

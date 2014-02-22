@@ -20,15 +20,22 @@ package
 		// Input stuff
 		public static var inputKeys:Object = {
 			// The keys for player 0
-			up0: [Key.W, 188],
+			//up0: [Key.W, 188],
+			//down0: [Key.S, Key.O],
 			left0: [Key.A],
-			down0: [Key.S, Key.O],
 			right0: [Key.D, Key.E],
+			left_target0: [Key.A],
+			right_target0: [Key.D, Key.E],
+			fire0: [Key.S, Key.O],
 			// The keys for player 1
-			up1: [Key.UP],
+			//up1: [Key.UP],
+			//down1: [Key.DOWN],
 			left1: [Key.LEFT],
-			down1: [Key.DOWN],
 			right1: [Key.RIGHT],
+			left_target1: [Key.LEFT],
+			right_target1: [Key.RIGHT],
+			fire1: [Key.DOWN],
+
 			// Other used keys
 			skip: [191, 192],
 			editor: [Key.F2],

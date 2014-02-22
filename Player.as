@@ -11,6 +11,7 @@ package
 		public var vel : Vector.<Number>;
 		public var id : int;
 		public var muted : Boolean;
+		public var targetting : Boolean = false;
 
 		private var colTypes:Array;
 		public var input : GameInput;
@@ -44,13 +45,33 @@ package
 		override public function update():void {
 			super.update();
 
+			checkInput();
+			updateSim();
+		}
+
+		public function checkInput():void {
 			// Check for input
-			if (input.check("left"+id)) {
-				vel[0] -= GC.moveSpeed;
+			if (targetting) {
+				if (input.check("left_target"+id)) {
+					// TODO: Target left
+				}
+				if (input.check("right_target"+id)) {
+					// TODO: Target right
+				}
+				if (input.check("shoot"+id)) {
+					// TODO: Shoot ball
+				}
+			} else {
+				if (input.check("left"+id)) {
+					vel[0] -= GC.moveSpeed;
+				}
+				if (input.check("right"+id)) {
+					vel[0] += GC.moveSpeed;
+				}
 			}
-			if (input.check("right"+id)) {
-				vel[0] += GC.moveSpeed;
-			}
+		}
+
+		public function updateSim():void {
 			// Damp the velocity to get smoother movement
 			vel[0] *= GC.playerDamp[0];
 			vel[1] *= GC.playerDamp[1];
@@ -58,7 +79,7 @@ package
 			// Avoid anoying pass by reference
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
-			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.5) {
+			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
 				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.playerWidth,0, GC.playerHeight]);
 				if (collisionData) {
 					// We have collided so move to the colision point
@@ -110,6 +131,7 @@ package
 				}
 			}
 			// Resorting to terrible clampling
+			// TODO: don't rely on something quite so terrible
 			if (x < 0) {
 				x = 0;
 				vel[0] *= -1;
