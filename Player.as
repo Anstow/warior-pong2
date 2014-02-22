@@ -2,19 +2,19 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
-	import net.flashpunk.graphics.Spritemap;
-	import net.flashpunk.Sfx;
-	import flash.utils.getQualifiedClassName;
 	
 	public class Player extends Entity
 	{
 		public var vel : Vector.<Number>;
 		public var id : int;
 		public var muted : Boolean;
-		public var targetting : Boolean = false;
+		private var targetting : Boolean = false;
 
 		private var colTypes:Array;
 		public var input : GameInput;
+
+		public var aimEntity : AimEntity;
+		public var angle : Number = 0;
 
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
 			// Set the initial velocity of the player
@@ -56,13 +56,21 @@ package
 			// Check for input
 			if (targetting) {
 				if (input.check("left_target"+id)) {
-					// TODO: Target left
+					// Target left
+					angle += GC.targettingAngleChange;
+					// clamp the angle to the region
+					if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
 				}
 				if (input.check("right_target"+id)) {
-					// TODO: Target right
+					// Target right
+					angle -= GC.targettingAngleChange;
+					if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
 				}
 				if (input.check("shoot"+id)) {
 					// TODO: Shoot ball
+					Targetting = false;
 				}
 			} else {
 				if (input.check("left"+id)) {
@@ -148,6 +156,10 @@ package
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
 			}
+
+			if (aimEntity) {
+				aimEntity.setPos([x,y]);
+			}
 		}
 
 		public function checkCollisions():void {
@@ -156,9 +168,27 @@ package
 
 			var b :Ball = collide("ball", x, y) as Ball;
 			if (b) {
-				targetting = true;
+				Targetting = true;
 				world.remove(b);
 			}
+		}
+
+		public function set Targetting(t:Boolean):void {
+			if (t && !targetting) {
+				// we want to turn on targetting mode
+				aimEntity = new AimEntity([x,y]);
+				if (world) world.add(aimEntity);
+				angle = 0;
+				targetting = true;
+			} else if (!t && targetting) {
+				// we want to turn off targetting mode
+				if (aimEntity) { // belt and braces
+					if (world) world.remove(aimEntity);
+					aimEntity = null;
+				}
+				targetting = false;
+			}
+			// Otherwise do nothing we are already in the correct mode
 		}
 	}
 }

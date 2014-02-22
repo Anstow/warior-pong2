@@ -53,8 +53,15 @@ package
 		public static var moveSpeed:Number = 1.5;
 		public static var playerWidth:int = 100;
 		public static var playerHeight:int = 20;
-		public static var playerDamp:Array = [.9, .9]; // [xDamp, yDamp]
+		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+
+		public static var targettingAngleChange : Number = 0.1;
+		public static var targettingAngleClamp : Number = Math.PI/3;
+		public static var targettingNo:int = 3;
+		public static var targettingSizes:Array = [ 10, 6, 3.6 ];
+		public static var targettingCenter:Array = [ 0, 15 ];
+		public static var targettingOffsets:Array = [ 21, 35.6 ];
 
 		public static var noPlayers : int = 2;
 		public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
