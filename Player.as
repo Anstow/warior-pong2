@@ -8,13 +8,13 @@ package
 		public var vel : Vector.<Number>;
 		public var id : int;
 		public var muted : Boolean;
-		private var targetting : Boolean = false;
 
 		private var colTypes:Array;
 		public var input : GameInput;
 
 		public var aimEntity : AimEntity;
 		public var angle : Number = 0;
+		public var fireCounter : Number = 0;
 
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
 			// Set the initial velocity of the player
@@ -43,13 +43,15 @@ package
 			// TODO: make these not rubish boxes
 			addGraphic(Image.createRect(GC.playerWidth, GC.playerHeight, 0xFF0000));
 
-			Targetting = true;
+			aimEntity = new AimEntity([x,y]);
+			if (world) world.add(aimEntity);
 		}
 		
 		override public function update():void {
 			super.update();
 
 			checkInput();
+			shooting();
 			updateSim();
 			checkCollisions(); // this may be a misnomer updateSim also does a fair bit of collision checking.
 		}
@@ -65,31 +67,24 @@ package
 
 		public function checkInput():void {
 			// Check for input
-			if (targetting) {
-				if (input.check("left_target"+id)) {
-					// Target left
-					angle += GC.targettingAngleChange;
-					// clamp the angle to the region
-					if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
-					aimEntity.setAngle(angle);
-				}
-				if (input.check("right_target"+id)) {
-					// Target right
-					angle -= GC.targettingAngleChange;
-					if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
-					aimEntity.setAngle(angle);
-				}
-				if (input.check("shoot"+id)) {
-					// TODO: Shoot ball
-					Targetting = false;
-				}
-			} else {
-				if (input.check("left"+id)) {
-					vel[0] -= GC.moveSpeed;
-				}
-				if (input.check("right"+id)) {
-					vel[0] += GC.moveSpeed;
-				}
+			if (input.check("left_target"+id)) {
+				// Target left
+				angle += GC.targettingAngleChange;
+				// clamp the angle to the region
+				if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
+				aimEntity.setAngle(angle);
+			}
+			if (input.check("right_target"+id)) {
+				// Target right
+				angle -= GC.targettingAngleChange;
+				if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
+				aimEntity.setAngle(angle);
+			}
+			if (input.check("left"+id)) {
+				vel[0] -= GC.moveSpeed;
+			}
+			if (input.check("right"+id)) {
+				vel[0] += GC.moveSpeed;
 			}
 		}
 
@@ -173,36 +168,21 @@ package
 			}
 		}
 
-		public function checkCollisions():void {
-			// If we are targetting we don't want to collide with things
-			if (targetting) return;
-
-			var b :Ball = collide("ball", x, y) as Ball;
-			if (b) {
-				Targetting = true;
-				world.remove(b);
+		public function shooting():void {
+			fireCounter++;
+			if (fireCounter == GC.invFireRate) {
+				fireCounter = 0;
+				shoot();
 			}
 		}
 
-		public function set Targetting(t:Boolean):void {
-			if (t && !targetting) {
-				// we want to turn on targetting mode
-				aimEntity = new AimEntity([x,y]);
-				if (world) world.add(aimEntity);
-				angle = 0;
-				targetting = true;
-			} else if (!t && targetting) {
-				// we want to turn off targetting mode
-				if (aimEntity) { // belt and braces
-					if (world) {
-						world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted, id));
-					   	world.remove(aimEntity);
-					}
-					aimEntity = null;
-				}
-				targetting = false;
+		public function shoot():void {
+			if (world) {
+				world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted, id));
 			}
-			// Otherwise do nothing we are already in the correct mode
+		}
+
+		public function checkCollisions():void {
 		}
 	}
 }

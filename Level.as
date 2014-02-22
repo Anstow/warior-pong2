@@ -58,8 +58,7 @@ package
 			reset();
 		}
 
-		public function reset():void
-		{
+		public function reset():void {
 			while(players.length > 0) {
 				players.pop();
 			}
@@ -67,7 +66,7 @@ package
 
 			var p:Player;
 			for (var i : int = 0; i < GC.noPlayers; i++) {
-				p = new Player(i, GC.playersStart[i], input, 0 != (mode & M_MUTED));
+				p = new Player(i, [(i+1)*GC.windowWidth / (GC.noPlayers + 1) - GC.playerWidth/2 , GC.windowHeight - GC.playerStartHeight], input, 0 != (mode & M_MUTED));
 				trace("player" + i + " added");
 				add(p);
 				players.push(p);
