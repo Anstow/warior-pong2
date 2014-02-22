@@ -96,14 +96,14 @@ package
 			if (x < 0) {
 				x = 0;
 				vel[0] *= -1;
-			} else if (x + GC.playerWidth > GC.windowWidth) {
+			} else if (x + GC.ballRadius*2 > GC.windowWidth) {
 				x = GC.windowWidth - GC.playerWidth - 1;
 				vel[0] *= -1;
 			}
 			if (y < 0) {
 				y = 0;
 				vel[1] *= -1;
-			} else if (y + GC.playerHeight > GC.windowHeight) {
+			} else if (y + GC.ballRadius*2 > GC.windowHeight) {
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
 			}
