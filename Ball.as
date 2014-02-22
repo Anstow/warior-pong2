@@ -74,7 +74,7 @@ package
 							vel[0] *= GC.ballBounce[1];
 							break;
 						case 2:
-							// We have hit the bottom wall
+							// We have hit the top wall
 							// bounce, remove the current movement and repeat
 							remainingVel[0] *= (1 - collisionData[0]);
 							remainingVel[1] *= GC.ballBounce[2] * (1 - collisionData[0]);
@@ -84,10 +84,14 @@ package
 						case 3:
 							// We have hit the bottom wall
 							// bounce, remove the current movement and repeat
-							remainingVel[0] *= (1 - collisionData[0]);
-							remainingVel[1] *= GC.ballBounce[3] * (1 - collisionData[0]);
+							//remainingVel[0] *= (1 - collisionData[0]);
+							//remainingVel[1] *= GC.ballBounce[3] * (1 - collisionData[0]);
 							// Set the velocity for the next frame
-							vel[1] *= GC.ballBounce[3];
+							//vel[1] *= GC.ballBounce[3];
+							
+							// Set vel to zero to avoid an infinite loop
+							remainingVel[0]=0; remainingVel[1] = 0;
+							hitBottom();
 							break;
 						default:
 							// Ok this shouldn't have happened lets pretend it didn't and just update normally
@@ -117,6 +121,10 @@ package
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
 			}
+		}
+
+		public function hitBottom():void {
+			if (world) world.remove(this);
 		}
 	}
 }
