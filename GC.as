@@ -69,6 +69,7 @@ package
 
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
 		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
+		public static var spawnGap: int = 180; // In seconds/60
 
 		public static var enemies : Array = [
 			{

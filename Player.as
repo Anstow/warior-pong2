@@ -42,6 +42,8 @@ package
 			// Add sprites
 			// TODO: make these not rubish boxes
 			addGraphic(Image.createRect(GC.playerWidth, GC.playerHeight, 0xFF0000));
+
+			Targetting = true;
 		}
 		
 		override public function update():void {
@@ -50,6 +52,15 @@ package
 			checkInput();
 			updateSim();
 			checkCollisions(); // this may be a misnomer updateSim also does a fair bit of collision checking.
+		}
+
+		override public function added():void {
+			super.added();
+			if (aimEntity) world.add(aimEntity);
+		}
+
+		override public function removed():void {
+			if (aimEntity) world.remove(aimEntity);
 		}
 
 		public function checkInput():void {

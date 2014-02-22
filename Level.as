@@ -26,6 +26,10 @@ package
 		private var mode:int;
 		private var loadLevelCallback:Function;
 
+		public var aiCounter : int = 0;
+		public var nextSpawn : int = 1;
+		public var currentDificultly : int = 1;
+
 		public function Level (loadLevelCallback:Function = null, mode:int=0, replayData:Object = null) {
 			// The game input is defined here 0 is the normal mode
 			this.mode = mode;
@@ -56,12 +60,12 @@ package
 
 		public function reset():void
 		{
-			var p:Player;
 			while(players.length > 0) {
-				p = players.pop();
-				if (p) remove(p);
+				players.pop();
 			}
+			removeAll();
 
+			var p:Player;
 			for (var i : int = 0; i < GC.noPlayers; i++) {
 				p = new Player(i, GC.playersStart[i], input, 0 != (mode & M_MUTED));
 				trace("player" + i + " added");
@@ -69,28 +73,40 @@ package
 				players.push(p);
 			}
 
-			add(new Ball([50, 50], [4, -5], 0 != (mode & M_MUTED)));
-
 			input.restart();
-
-			for (i = 0; i < 30; i++ )
-				spawnEnemy();
 			// TODO: reset function
 		}
 
 		public function spawnEnemy(t:int = -1):void {
-			if (t == -1) t = FP.rand(GC.enemies.length);
 			var pos : Array = [
 			   	GC.spawnXLimits[0] + FP.random * (GC.windowWidth - GC.spawnXLimits[0] - GC.spawnXLimits[1]),
 				GC.spawnYLimits[0] + FP.random * (GC.spawnYLimits[1] - GC.spawnXLimits[0]) ];
+			spawnEnemyAt(pos, t);
+		}
+			
+		public function spawnEnemyAt(pos:Array, t:int = -1):void {
+			if (t == -1) t = FP.rand(GC.enemies.length);
 			add(new Enemy(0, pos, 0 != (mode & M_MUTED)));
+		}
+
+		public function spawner():void {
+			aiCounter++;
+			if (aiCounter == nextSpawn) {
+				currentDificultly++;
+				nextSpawn += GC.spawnGap;
+				for (var i : int = 0; i < currentDificultly; i++) {
+					spawnEnemy();
+				}
+			}
 		}
 
 		override public function update():void {
 			super.update();
+
+			spawner();
 			// reset key
 			if (input.pressed("restart")) {
-				reset();
+				loadLevelCallback(new Level(loadLevelCallback));
 			}
 			// mute key
 			if (input.pressed("mute")) {
@@ -108,6 +124,7 @@ package
 			return super.add(e);
 		}
 
+		//}
 
 		/*!
 		 * \brief This calculates the first collision (as a proportion of the velocity) of a box with a bounding box of your choice.
