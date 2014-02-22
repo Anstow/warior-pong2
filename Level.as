@@ -73,7 +73,8 @@ package
 
 			input.restart();
 
-			spawnEnemy();
+			for (i = 0; i < 30; i++ )
+				spawnEnemy();
 			// TODO: reset function
 		}
 

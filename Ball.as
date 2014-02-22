@@ -12,8 +12,9 @@ package
 		public var muted : Boolean;
 
 		private var colTypes:Array;
+		private var playerShot:int;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean) {
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
 			// I can't think of anything to collide with at the moment.
@@ -25,6 +26,7 @@ package
 			// set collide type
 			type = "ball";
 			this.muted = muted;
+			this.playerShot = playerShot;
 			// set possition
 			super(pos[0], pos[1]);
 			// Set the hitbox

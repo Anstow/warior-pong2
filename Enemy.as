@@ -140,6 +140,12 @@ package
 		}
 
 		public function checkCollisions():void {
+			var b :Ball = collide("ball", x, y) as Ball;
+			if (b) {
+				// Increase score or relevant player
+				// b.playerShot;
+				if (world) world.remove(this); // I like these belts and braces
+			}
 		}
 	}
 }

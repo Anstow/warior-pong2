@@ -184,7 +184,7 @@ package
 				// we want to turn off targetting mode
 				if (aimEntity) { // belt and braces
 					if (world) {
-						world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted));
+						world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted, id));
 					   	world.remove(aimEntity);
 					}
 					aimEntity = null;
