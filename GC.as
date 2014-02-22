@@ -66,6 +66,18 @@ package
 
 		public static var noPlayers : int = 2;
 		public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
+
+		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
+		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
+
+		public static var enemies : Array = [
+			{
+				name: "bouncer",
+				speed: 0.5,
+				ai_repeat: 180, // The ai is re-ran after this many frames passes
+				hitbox: [20, 20]
+			}
+		]
 		
 		public function GC ():void
 		{

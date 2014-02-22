@@ -73,7 +73,16 @@ package
 
 			input.restart();
 
+			spawnEnemy();
 			// TODO: reset function
+		}
+
+		public function spawnEnemy(t:int = -1):void {
+			if (t == -1) t = FP.rand(GC.enemies.length);
+			var pos : Array = [
+			   	GC.spawnXLimits[0] + FP.random * (GC.windowWidth - GC.spawnXLimits[0] - GC.spawnXLimits[1]),
+				GC.spawnYLimits[0] + FP.random * (GC.spawnYLimits[1] - GC.spawnXLimits[0]) ];
+			add(new Enemy(0, pos, 0 != (mode & M_MUTED)));
 		}
 
 		override public function update():void
