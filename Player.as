@@ -183,7 +183,10 @@ package
 			} else if (!t && targetting) {
 				// we want to turn off targetting mode
 				if (aimEntity) { // belt and braces
-					if (world) world.remove(aimEntity);
+					if (world) {
+						world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted));
+					   	world.remove(aimEntity);
+					}
 					aimEntity = null;
 				}
 				targetting = false;

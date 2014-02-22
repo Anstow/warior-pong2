@@ -46,6 +46,7 @@ package
 		public static var EditorKeys:Object = {
 		};
 
+		public static var ballSpeed:Number = 7;
 		public static var ballRadius:int = 5;
 		public static var ballDamp:Array = [1, 1]; // [xDamp, yDamp]
 		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]

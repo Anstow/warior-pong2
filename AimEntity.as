@@ -25,6 +25,10 @@ package
 			x = pos[0] + GC.playerWidth/2 - GC.targettingCenter[0];
 			y = pos[1] - GC.targettingCenter[1];
 		}
+
+		public function getPos():Array {
+			return [x,y];
+		}
 			
 		public function setAngle(angle:Number):void {
 			for (var i:int = 1; i < GC.targettingNo; i++) {
