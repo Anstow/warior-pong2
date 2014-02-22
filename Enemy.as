@@ -36,7 +36,6 @@ package
 			setHitbox(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1]);
 			// Add sprites
 			image = new Image(GC.BOUNCER);
-			image.angle = 180;
 			addGraphic(image);
 			
 			aiCounter = 0;
