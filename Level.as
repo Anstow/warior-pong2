@@ -86,8 +86,7 @@ package
 			add(new Enemy(0, pos, 0 != (mode & M_MUTED)));
 		}
 
-		override public function update():void
-		{
+		override public function update():void {
 			super.update();
 			// reset key
 			if (input.pressed("restart")) {
@@ -124,8 +123,7 @@ package
 		 *		2 is top
 		 * 		3 is bottom
 		 */
-		public static function CalculateCollideTimes(pos:Array, vel:Array, collisionBox:Array, boundingBox:Array = null):Array
-	   	{
+		public static function CalculateCollideTimes(pos:Array, vel:Array, collisionBox:Array, boundingBox:Array = null):Array {
 			if (boundingBox == null) boundingBox = [0,GC.windowWidth,0,GC.windowHeight];
 			var collisions:Array = [2,2,2,2,2];
 			if (vel[0]*vel[0] > 0.01) {

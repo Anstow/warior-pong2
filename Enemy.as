@@ -10,8 +10,8 @@ package
 		public var id : int;
 		public var muted : Boolean;
 		public var speed : Number;
-		public var aiRepeat : Number;
-		public var aiCounter : Number;
+		public var aiRepeat : int;
+		public var aiCounter : int;
 
 		private var colTypes:Array;
 
