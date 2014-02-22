@@ -16,7 +16,7 @@ package
 		private var colTypes:Array;
 
 		public function Enemy(ident:int, pos:Array, muted:Boolean) {
-			// Set the initial velocity of the enemy
+			// Set up the velocity vector
 			vel = new Vector.<Number>(2, true);
 			vel[0] = 0;
 			vel[1] = 0;
@@ -37,6 +37,7 @@ package
 			// TODO: make these not rubish boxes
 			addGraphic(Image.createRect(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1], 0xFF0000));
 			aiCounter = 0;
+			// Set the initial velocity
 			queryAI();
 		}
 		
