@@ -15,7 +15,9 @@ package
 		private var playerShot:int;
 		private var image:Image;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1) {
+		public var level : int;
+
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=0) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
 			// I can't think of anything to collide with at the moment.
@@ -28,6 +30,7 @@ package
 			type = "ball";
 			this.muted = muted;
 			this.playerShot = playerShot;
+			this.level = level;
 			// set possition
 			super(pos[0], pos[1]);
 			// Set the hitbox
@@ -55,7 +58,6 @@ package
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
 				var collisionData : Array = Level.CalculateCollideTimes([0,0], remainingVel, [left,right,top,bottom]);
-				trace([left,right,top,bottom]);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
@@ -111,18 +113,18 @@ package
 			}
 			// Resorting to terrible clampling
 			// TODO: don't rely on something quite so terrible
-			if (x < 0) {
-				x = 0;
+			if (left < 0) {
+				x = originX;
 				vel[0] *= -1;
-			} else if (x + GC.ballRadius*2 > GC.windowWidth) {
-				x = GC.windowWidth - GC.playerWidth - 1;
+			} else if (right > GC.windowWidth) {
+				x = GC.windowWidth + originX - width;
 				vel[0] *= -1;
 			}
-			if (y < 0) {
-				y = 0;
+			if (top < 0) {
+				y = originY;
 				vel[1] *= -1;
-			} else if (y + GC.ballRadius*2 > GC.windowHeight) {
-				y = GC.windowHeight - GC.playerHeight - 1;
+			} else if (bottom > GC.windowHeight) {
+				y = GC.windowHeight + originY - height;
 				vel[1] *= -1;
 				hitBottom();
 			}
@@ -131,7 +133,9 @@ package
 		public function hitEnemy(level:int):void {
 			// If at some point I implement new balls level may become
 			// necessery
-			removeThis();
+			if (this.level > level) {
+				removeThis();
+			}
 		}
 
 		public function hitBottom():void {

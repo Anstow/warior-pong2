@@ -299,7 +299,7 @@
 				cols = col.length;
 				for (x = 0; x < cols; x ++)
 				{
-					if (col[x] == '') continue;
+					if (col[x] == '' || int(col[x]) < 0) continue;
 					setTile(x, y, uint(col[x]));
 				}
 			}
@@ -524,8 +524,5 @@
 		/** @private */ private var _setRows:uint;
 		/** @private */ private var _setCount:uint;
 		/** @private */ private var _tile:Rectangle;
-		
-		// Global objects.
-		/** @private */ private var _rect:Rectangle = FP.rect;
 	}
 }
