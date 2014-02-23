@@ -13,6 +13,7 @@ package
 
 		private var colTypes:Array;
 		private var playerShot:int;
+		private var image:Image;
 
 		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1) {
 			// Set the initial velocity of the ball
@@ -30,10 +31,12 @@ package
 			// set possition
 			super(pos[0], pos[1]);
 			// Set the hitbox
-			setHitbox(GC.ballRadius*2, GC.ballRadius*2);
+			setHitbox(GC.ballRadius*2, GC.ballRadius*2, GC.ballRadius, GC.ballRadius);
 			// Add sprites
 			// TODO: make that are not rubish circles
-			addGraphic(Image.createCircle(GC.ballRadius, 0x00FF00));
+			image = Image.createCircle(GC.ballRadius, 0x00FF00);
+			image.x -= GC.ballRadius; image.y -= GC.ballRadius;
+			addGraphic(image);
 		}
 		
 		override public function update():void {
@@ -51,7 +54,8 @@ package
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
-				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.ballRadius*2,0, GC.ballRadius*2]);
+				var collisionData : Array = Level.CalculateCollideTimes([0,0], remainingVel, [left,right,top,bottom]);
+				trace([left,right,top,bottom]);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
@@ -120,10 +124,21 @@ package
 			} else if (y + GC.ballRadius*2 > GC.windowHeight) {
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
+				hitBottom();
 			}
 		}
 
+		public function hitEnemy(level:int):void {
+			// If at some point I implement new balls level may become
+			// necessery
+			removeThis();
+		}
+
 		public function hitBottom():void {
+			removeThis();
+		}
+		
+		public function removeThis():void {
 			if (world) world.remove(this);
 		}
 	}

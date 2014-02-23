@@ -37,7 +37,7 @@ package
 		}
 
 		public function getPos():Array {
-			return [x-GC.ballRadius,y-GC.ballRadius];
+			return [x,y];
 		}
 			
 		public function setAngle(angle:Number):void {

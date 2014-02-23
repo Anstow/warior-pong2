@@ -2,8 +2,12 @@ package
 {
 	import flash.utils.ByteArray;
 	import com.adobe.serialization.json.JSON;
+	import flash.display.BitmapData;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
 
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.graphics.Image;
 
 	/**
 	 * ...
@@ -16,22 +20,30 @@ package
 		public static const windowWidth:int = 960;
 		public static const FPS:int = 60;
 
-
 		// Input stuff
 		public static var inputKeys:Object = {
 			// The keys for player 0
 			//up0: [Key.W, 188],
 			//down0: [Key.S, Key.O],
 			left_target0: [Key.A],
+			right0: [Key.D , Key.E],
+			left0: [Key.A],
 			right_target0: [Key.D , Key.E],
+			switch_mode0: [Key.W, 188],
 			//shoot0: [Key.S, Key.O],
 			// The keys for player 1
-			left_target1: [Key.LEFT], // , Key.D],
-			right_target1: [Key.RIGHT], // , Key.N],
+			left_target1: [Key.LEFT],
+			right_target1: [Key.RIGHT],
+			left1: [Key.LEFT],
+			right1: [Key.RIGHT],
+			switch_mode1: [Key.UP],
 			//shoot1: [Key.DOWN],
 			// The keys for player 2 this requires qwerty
-			left_target2: [Key.H],
-			right_target2: [Key.K],
+			left_target2: [Key.H], // , Key.D],
+			right_target2: [Key.K], // , Key.N],
+			left2: [Key.H], // , Key.D],
+			right2: [Key.K], // , Key.N],
+			switch_mode2: [Key.U], // , Key.G],
 
 			// Other used keys
 			//skip: [191, 192],
@@ -40,7 +52,7 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 2;
+		public static var noPlayers : int = 3;
 		public static var playerStartHeight : int = 50;
 		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 
@@ -58,7 +70,7 @@ package
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
-		public static var targettingAngleChange : Number = 0.1;
+		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
 		public static var targettingNo:int = 3; // no. of targeting circles?
 		public static var targettingSizes:Array = [ 5, 3, 2 ]; // radius for the targeting circles in pixels
@@ -74,17 +86,37 @@ package
 			{
 				aiType: "bouncer",
 				speed: 0.5,
+				level: 0,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
-				hitbox: [18, 20]
+				hitbox: [18, 20], // width, height
+				graphic_box: [0,0,18,20] // x,y,w,h
+			},
+			{
+				aiType: "bouncer",
+				speed: 0.5,
+				level: 1,
+				ai_repeat: 240, // The ai is re-ran after this many frames passes
+				hitbox: [18, 20],
+				graphic_box: [0,0,18,20]
 			}
 		];
 		
+		[Embed(source = './assets/shipa1.png')] public static const ASSETS:Class;
+
 		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
 		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
 		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class;
 		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class;
 		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
 		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
+
+		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
+			if (!src) src = ASSETS;
+			var dataBitmap : BitmapData = new BitmapData(clipRect[2], clipRect[3]);
+			var img : Image = new Image(src, new Rectangle(clipRect[0], clipRect[1], clipRect[2], clipRect[3]));
+			img.render(dataBitmap, new Point(0,0), new Point(0,0));
+			return dataBitmap;
+		}
 		
 		public function GC ():void
 		{

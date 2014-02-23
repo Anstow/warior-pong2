@@ -17,6 +17,8 @@ package
 		private var image : Image;
 		public var fireCounter : Number = 0;
 
+		public var modeAim:Boolean = true;
+
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
 			// Set the initial velocity of the player
 			vel = new Vector.<Number>(2, true);
@@ -68,24 +70,30 @@ package
 
 		public function checkInput():void {
 			// Check for input
-			if (input.check("left_target"+id)) {
-				// Target left
-				angle += GC.targettingAngleChange;
-				// clamp the angle to the region
-				if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
-				aimEntity.setAngle(angle);
+			if (modeAim) {
+				if (input.check("left_target"+id)) {
+					// Target left
+					angle += GC.targettingAngleChange;
+					// clamp the angle to the region
+					if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
+				}
+				if (input.check("right_target"+id)) {
+					// Target right
+					angle -= GC.targettingAngleChange;
+					if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
+				}
+			} else {
+				if (input.check("left"+id)) {
+					vel[0] -= GC.moveSpeed;
+				}
+				if (input.check("right"+id)) {
+					vel[0] += GC.moveSpeed;
+				}
 			}
-			if (input.check("right_target"+id)) {
-				// Target right
-				angle -= GC.targettingAngleChange;
-				if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
-				aimEntity.setAngle(angle);
-			}
-			if (input.check("left"+id)) {
-				vel[0] -= GC.moveSpeed;
-			}
-			if (input.check("right"+id)) {
-				vel[0] += GC.moveSpeed;
+			if (input.pressed("switch_mode" + id)) {
+				modeAim = !modeAim;
 			}
 		}
 
@@ -98,7 +106,7 @@ package
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
-				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.playerWidth,0, GC.playerHeight]);
+				var collisionData : Array = Level.CalculateCollideTimes([0,0], remainingVel, [left,right,top,bottom]);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
