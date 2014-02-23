@@ -52,7 +52,7 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 2;
+		public static var noPlayers : int = 0;
 		public static var playerStartHeight : int = 50;
 		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 
@@ -113,6 +113,27 @@ package
 				speed: 0.5,
 				level: 1,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
+				hitbox: [18, 20],
+				graphic_box: [0,20,18,20]
+			},
+			{
+				aiType: "tail_head",
+				speed: 0.5,
+				level: 1,
+				ai_repeat: 1, // The ai is re-ran after this many frames passes
+				hitbox: [18, 20],
+				graphic_box: [0,20,18,20],
+				turn_angle_cap: 0.01,
+				turn_frequency: 300,
+				tailPiece: 3,
+				tailLength: 6,
+				tailSeparation: 10 // In pixells
+			},
+			{
+				aiType: "tail_piece",
+				speed: 0.5,
+				level: 1,
+				ai_repeat: -1, // We don't want any ai to run
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20]
 			}
