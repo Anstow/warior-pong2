@@ -133,7 +133,7 @@ package
 		public function hitEnemy(level:int):void {
 			// If at some point I implement new balls level may become
 			// necessery
-			if (this.level > level) {
+			if (this.level < level) {
 				removeThis();
 			}
 		}
