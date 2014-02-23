@@ -16,9 +16,12 @@ package
 			for (var i : int = 0; i < GC.targettingNo; i++) {
 				switch (i)
 				{
-					case 0: image = new Image(GC.TARGET_L); break;
-					case 1: image = new Image(GC.TARGET_M); break;
-					case 2: image = new Image(GC.TARGET_S);  break;
+					case 0: image = new Image(GC.TARGET_L); 
+							image.alpha = 1; break;
+					case 1: image = new Image(GC.TARGET_M); 
+							image.alpha = .65;  break;
+					case 2: image = new Image(GC.TARGET_S);
+							image.alpha = .3; break;
 				}
 				targets.push(image);
 				addGraphic(targets[i]);

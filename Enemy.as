@@ -1,8 +1,12 @@
 package
 {
+	import flash.display.BitmapData;
+	import flash.display.Sprite;
+	import flash.filters.GlowFilter;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Stamp;
 	
 	public class Enemy extends Entity
 	{

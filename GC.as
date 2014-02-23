@@ -85,7 +85,6 @@ package
 		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class;
 		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
 		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
-
 		
 		public function GC ():void
 		{
