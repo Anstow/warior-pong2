@@ -113,7 +113,7 @@ package
 				addable: true,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20], // width, height
-				graphic_box: [0,20,18,20] // x,y,w,h
+				graphic_box: [162,30,18,20] // x,y,w,h
 			},
 			{
 				aiType: "bouncer",
@@ -122,20 +122,20 @@ package
 				addable: true,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
-				graphic_box: [0,20,18,20]
+				graphic_box: [162,30,18,20]
 			},
 			{
 				aiType: "tail_head",
-				speed: 0.5,
+				speed: 1.5,
 				level: 1,
 				addable: true,
 				ai_repeat: 1, // The ai is re-ran after this many frames passes
-				hitbox: [18, 20],
-				graphic_box: [0,20,18,20],
+				hitbox: [13,13],
+				graphic_box: [198,0,13,13],
 				turn_angle_cap: 0.01,
 				turn_frequency: 200,
 				tailPiece: 3,
-				tailLength: 6,
+				tailLength: 18,
 				tailSeparation: 20 // In frames
 			},
 			{
@@ -144,8 +144,8 @@ package
 				level: 3,
 				addable: false,
 				ai_repeat: -1, // We don't want any ai to run
-				hitbox: [18, 20],
-				graphic_box: [0,20,18,20]
+				hitbox: [13,13],
+				graphic_box: [165,102,13,13]
 			}
 		];
 		
