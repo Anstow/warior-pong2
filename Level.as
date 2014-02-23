@@ -170,7 +170,6 @@ package
 					minPosition = i;
 			}
 			if (minPosition != 4) {
-				trace(collisionBox, boundingBox, vel);
 				return [collisions[minPosition], minPosition];
 			}
 			else
