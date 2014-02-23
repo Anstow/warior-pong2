@@ -3,18 +3,24 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.PreRotation;
 
 	public class AimEntity extends Entity
 	{
 		public var targets : Vector.<Graphic>;
-		private var image : Image;
+		private var selectorImage : PreRotation;
 
-		public function AimEntity(pos:Array) {
+		public function AimEntity(pos:Array, ident:int) {
 			super();
 			setPos(pos);
+
+			selectorImage = new PreRotation(GC.getClippedImg(GC.selectorGraphicsBoxes[ident]), 256, true);
+			selectorImage.centerOrigin();
+			addGraphic(selectorImage);
+
 			targets = new Vector.<Graphic>();
 			for (var i : int = 0; i < GC.targettingNo; i++) {
-				image = new Image(GC.getClippedImg(GC.targetingGraphicsBoxes[i])); 
+				var image : Image = new Image(GC.getClippedImg(GC.targetingGraphicsBoxes[i])); 
 				image.alpha = 1/Math.pow(3,i);
 				targets.push(image);
 				addGraphic(targets[i]);
@@ -22,6 +28,11 @@ package
 			setAngle(0);
 			targets[0].x = - GC.targettingSizes[0];
 			targets[0].y = - GC.targettingSizes[0];
+		}
+
+		public override function update():void {
+			// Rotate the selector image
+			selectorImage.frameAngle += GC.selectorRotateSpeed;
 		}
 
 		public function setPos(pos:Array):void {

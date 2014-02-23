@@ -46,7 +46,7 @@ package
 			image = new Image(GC.getClippedImg(GC.playerGraphicsBoxes[ident]));
 			addGraphic(image);
 
-			aimEntity = new AimEntity([x,y]);
+			aimEntity = new AimEntity([x,y], ident);
 			if (world) world.add(aimEntity);
 		}
 		
