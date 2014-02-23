@@ -52,7 +52,7 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 0;
+		public static var noPlayers : int = 2;
 		public static var playerStartHeight : int = 50;
 		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 
@@ -132,7 +132,7 @@ package
 			{
 				aiType: "tail_piece",
 				speed: 0.5,
-				level: 1,
+				level: 3,
 				ai_repeat: -1, // We don't want any ai to run
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20]

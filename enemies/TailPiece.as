@@ -22,6 +22,11 @@ package enemies
 			y = pos[1];
 			angle = pos[2];
 		}
+
+		override public function hitByBall(b:Ball):void {
+			trace(level);
+			b.hitEnemy(level);
+		}
 	}
 }
 

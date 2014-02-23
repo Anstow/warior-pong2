@@ -41,6 +41,7 @@ package enemies
 
 		override public function added():void {
 			super.added();
+			// Add the tail pieces
 			for (var i:int = 0; i < tailPieces.length; i++) {
 				if (tailPieces[i]) world.add(tailPieces[i]);
 			}
@@ -48,6 +49,7 @@ package enemies
 
 		override public function removed():void {
 			super.removed();
+			// remove the tail pieces
 			for (var i:int = 0; i < tailPieces.length; i++) {
 				if (tailPieces[i]) world.remove(tailPieces[i]);
 				tailPieces[i] = null;
@@ -56,6 +58,7 @@ package enemies
 		
 		override public function updateSim():void {
 			super.updateSim();
+
 			// remove the last coordinate
 			tailPiecePath.pop();
 
