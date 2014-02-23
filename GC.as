@@ -113,12 +113,12 @@ package
 		
 		[Embed(source = './assets/spritesheet.png')] public static const ASSETS:Class;
 
-		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
-		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
-		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class;
-		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class;
-		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
-		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
+		[Embed(source = './assets/player.png')] public static const PLAYER:Class; // 0,0,70,20
+		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class; // 70,0,28,28
+		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class; // 0,20,18,20
+		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class; // 162,20,10,10
+		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class; // 188,14,6,6
+		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class; // 188,14,4,4
 
 		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
 			if (!src) src = ASSETS;
