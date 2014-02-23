@@ -21,6 +21,7 @@ package
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
 		private var image : Image;
+		public var angle : Number;
 
 		private var colTypes:Array;
 
@@ -55,16 +56,17 @@ package
 			//image.smooth = true;
 			image.centerOrigin();
 			addGraphic(image);
+			angle = 0;
 		}
 		
 		override public function update():void {
 			super.update();
 
-			image.angle += 0.6;
-
 			runAI();
 			updateSim();
 			checkCollisions(); // this may be a misnomer updateSim also does a fair bit of collision checking.
+
+			image.angle = -angle * 180 / Math.PI;
 		}
 
 		public function queryAI():void {
@@ -171,17 +173,23 @@ package
 		public function checkCollisions():void {
 			var b :Ball = collide("ball", x, y) as Ball;
 			if (b) {
-				// Increase score or relevant player
-				// b.playerShot;
-				if (world) world.remove(this); // I like these belts and braces
+				hitByBall(b);
 				b.hitEnemy(level);
 			}
+		}
+
+		public function hitByBall(b:Ball):void {
+			// Increase score or relevant player
+			// b.playerShot;
+			if (world) world.remove(this); // I like these belts and braces
 		}
 
 		public static function createEnemy(ident:int, pos:Array, muted:Boolean):Enemy {
 			switch (GC.enemies[ident].aiType) {
 				case "bouncer":
 					return new Bouncer(ident, pos, muted);
+				case "tail_head":
+					return new TailHead(ident, pos, muted);
 				default:
 					return null;
 			}

@@ -17,7 +17,7 @@ package
 
 		public var level : int;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=0) {
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=1) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
 			// I can't think of anything to collide with at the moment.
@@ -133,7 +133,7 @@ package
 		public function hitEnemy(level:int):void {
 			// If at some point I implement new balls level may become
 			// necessery
-			if (this.level > level) {
+			if (this.level < level) {
 				removeThis();
 			}
 		}
