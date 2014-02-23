@@ -75,9 +75,9 @@ package
 			[0, 0, 70, 20]
 		];
 		public static var selectorGraphicsBoxes:Array = [
-			[0, 0, 70, 20],
-			[0, 0, 70, 20],
-			[0, 0, 70, 20]
+			[70,0,28,28],
+			[70,0,28,28],
+			[70,0,28,28]
 		];
 
 		public static var targettingAngleChange : Number = 0.05;
