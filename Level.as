@@ -20,6 +20,8 @@ package
 		public static const M_RECORD:int = 16;
 
 		public var players:Array = [];
+		public var scores:Array = [];
+		public var scoreBoxes:Array =  [];
 		private var input:GameInput;
 
 		public var worldBuffer:BitmapData;
@@ -28,9 +30,11 @@ package
 
 		public var aiCounter : int = 0;
 		public var nextSpawn : int = 1;
-		public var currentDificultly : Number = 1;
+		public var currentDificultly : Number = 10;
 
 		public var mobCount : int = 0;
+
+		public var toSpawn : Vector.<Array>;
 
 		public function Level (loadLevelCallback:Function = null, mode:int=0, replayData:Object = null) {
 			// The game input is defined here 0 is the normal mode
@@ -53,6 +57,8 @@ package
 				input = new GameInput(GameInput.GAME_PLAY);
 			}
 
+			toSpawn = new Vector.<Array>();
+
 			super();
 			add(input);
 
@@ -68,10 +74,14 @@ package
 
 			var p:Player;
 			for (var i : int = 0; i < GC.noPlayers; i++) {
-				p = new Player(i, [(i+1)*GC.windowWidth / (GC.noPlayers + 1) - GC.playerWidth/2 , GC.windowHeight - GC.playerStartHeight], input, 0 != (mode & M_MUTED));
+				var xPos:int = (i+1)*GC.windowWidth / (GC.noPlayers + 1);
+				p = new Player(i, [xPos - GC.playerWidth/2, GC.windowHeight - GC.playerStartHeight], input, 0 != (mode & M_MUTED));
 				trace("player" + i + " added");
 				add(p);
 				players.push(p);
+				scores.push(0);
+				scoreBoxes.push(new ScoreBox([xPos, GC.scoreYPos],0,i));
+				add(scoreBoxes[i]);
 			}
 
 			spawnEnemy(2);
@@ -81,10 +91,7 @@ package
 		}
 
 		public function spawnEnemy(t:int = -1):void {
-			var pos : Array = [
-			   	GC.spawnXLimits[0] + FP.random * (GC.windowWidth - GC.spawnXLimits[0] - GC.spawnXLimits[1]),
-				GC.spawnYLimits[0] + FP.random * (GC.spawnYLimits[1] - GC.spawnXLimits[0]) ];
-			spawnEnemyAt(pos, t);
+			spawnEnemyAt(getSpawnPos(), t);
 		}
 			
 		public function spawnEnemyAt(pos:Array, t:int = -1):void {
@@ -92,11 +99,32 @@ package
 			add(Enemy.createEnemy(t, pos, 0 != (mode & M_MUTED)));
 		}
 
+		public function getSpawnPos():Array {
+			return [
+			   	GC.spawnXLimits[0] + FP.random * (GC.windowWidth - GC.spawnXLimits[0] - GC.spawnXLimits[1]),
+				GC.spawnYLimits[0] + FP.random * (GC.spawnYLimits[1] - GC.spawnXLimits[0]) ];
+		}
+
 		public function spawner():void {
 			aiCounter++;
 			if (aiCounter == nextSpawn) {
-				currentDificultly += 0.5;
-				nextSpawn += GC.spawnGap;
+				aiCounter = 0;
+				var temp : int = mobCount;
+				while (temp < currentDificultly) {
+					// Lets do some spawning
+					var s : Array = FP.choose(GC.spawnValues);
+					if (s[1] > currentDificultly) continue;
+					var pos:Array = getSpawnPos();
+					for (var i : int = 0; i < s[2]; i++) {
+						temp += GC.enemies[s[0]].value;
+						toSpawn.push([pos,s[0]]);
+					}
+				}
+			}
+			 
+			while (toSpawn.length > 0) {
+				var spawn : Array = toSpawn.pop();
+				spawnEnemyAt(spawn[0], spawn[1]);
 			}
 		}
 
@@ -121,12 +149,21 @@ package
 	   	// instead of the screen 
 		public override function add(e:Entity):Entity {
 			e.renderTarget = worldBuffer;
+			if (e is Enemy) {
+				mobCount += (e as Enemy).value;
+			}
 			return super.add(e);
 		}
 
 		public override function remove(e:Entity):Entity {
 			if (e is Enemy) {
 				// Check 
+				mobCount -= (e as Enemy).value;
+				currentDificultly += 0.5;
+				if ((e as Enemy).killedBy >= 0) {
+					scores[(e as Enemy).killedBy] += (e as Enemy).value;
+					scoreBoxes[(e as Enemy).killedBy].Score = scores[(e as Enemy).killedBy];
+				}
 			}
 			return super.remove(e);
 		}

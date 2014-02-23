@@ -9,7 +9,6 @@ package
 		public var id : int;
 		public var muted : Boolean;
 
-		private var colTypes:Array;
 		public var input : GameInput;
 
 		public var aimEntity : AimEntity;
@@ -27,14 +26,6 @@ package
 			// set the id of the player
 			id  = ident;
 			input = inp;
-			// I can't think of anything to collide with at the moment.
-			colTypes = [];
-			// Collide with other players
-			for (var i:int = 0; i < GC.noPlayers; i++) {
-				if (i != ident) {
-					colTypes.push("player" + i);
-				}
-			}
 			// set collide type
 			type = "player" + id;
 			this.muted = muted;

@@ -59,6 +59,8 @@ package
 		public static var EditorKeys:Object = {
 		};
 
+		public static var scoreYPos : int = 20;
+
 		public static var ballSpeed:Number = 7;
 		public static var ballRadius:int = 5;
 		public static var ballDamp:Array = [1, 1]; // [xDamp, yDamp]
@@ -98,11 +100,11 @@ package
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
 		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
 		public static var spawnGap: int = 180; // In seconds/60
-
 		public static var spawnValues:Array = [
-			[0, 1], // [Position in enemies, dificulty]
-			[1, 3],
-			[2, 10]
+			// [Position in enemies, dificulty to start spawning at, how many to spawn
+			[0, 1, 10],
+			[1, 3, 10],
+			[2, 10, 1]
 		];
 
 		public static var enemies : Array = [
@@ -111,6 +113,7 @@ package
 				speed: 0.5,
 				level: 0,
 				addable: true,
+				value: 1,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20], // width, height
 				graphic_box: [162,30,18,20] // x,y,w,h
@@ -120,6 +123,7 @@ package
 				speed: 0.5,
 				level: 1,
 				addable: true,
+				value: 10,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
 				graphic_box: [162,30,18,20]
@@ -129,6 +133,7 @@ package
 				speed: 1.5,
 				level: 1,
 				addable: true,
+				value: 20,
 				ai_repeat: 1, // The ai is re-ran after this many frames passes
 				hitbox: [13,13],
 				graphic_box: [198,0,13,13],
@@ -143,6 +148,7 @@ package
 				speed: 0.5,
 				level: 3,
 				addable: false,
+				value: 0,
 				ai_repeat: -1, // We don't want any ai to run
 				hitbox: [13,13],
 				graphic_box: [165,102,13,13]

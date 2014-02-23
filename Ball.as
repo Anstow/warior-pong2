@@ -12,7 +12,7 @@ package
 		public var muted : Boolean;
 
 		private var colTypes:Array;
-		private var playerShot:int;
+		public var playerShot:int;
 		private var image:Image;
 
 		public var level : int;
