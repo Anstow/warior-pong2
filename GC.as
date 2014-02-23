@@ -68,7 +68,12 @@ package
 		public static var playerWidth:int = 70;
 		public static var playerHeight:int = 20;
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
-		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+		public static var playerBounce:Array = [ -1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+		public static var playerGraphicsBoxes:Array = [
+			[0, 0, 70, 20],
+			[0, 0, 70, 20],
+			[0, 0, 70, 20]
+		];
 
 		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
@@ -77,6 +82,11 @@ package
 		public static var targettingCenter:Array = [ 0, 10 ]; // centre of bottom targeting circle relative to top centre of paddle
 		public static var targettingOffsets:Array = [ 18, 32 ]; // offsets between the centre of circles starting from the bottom
 		public static var invFireRate:int = 30;
+		public static var targetingGraphicsBoxes:Array = [
+			[162,20,10,10],
+			[182,14,6,6],
+			[188,14,4,4],
+		];
 
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
 		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
@@ -97,7 +107,7 @@ package
 				level: 1,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
-				graphic_box: [0,0,18,20]
+				graphic_box: [0,20,18,20]
 			}
 		];
 		
