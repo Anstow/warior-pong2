@@ -85,7 +85,7 @@ package
 			
 		public function spawnEnemyAt(pos:Array, t:int = -1):void {
 			if (t == -1) t = FP.rand(GC.enemies.length);
-			add(new Enemy(0, pos, 0 != (mode & M_MUTED)));
+			add(Enemy.createEnemy(0, pos, 0 != (mode & M_MUTED)));
 		}
 
 		public function spawner():void {
