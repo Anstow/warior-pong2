@@ -3,7 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Image;
-	
+
 	public class AimEntity extends Entity
 	{
 		public var targets : Vector.<Graphic>;
@@ -14,15 +14,8 @@ package
 			setPos(pos);
 			targets = new Vector.<Graphic>();
 			for (var i : int = 0; i < GC.targettingNo; i++) {
-				switch (i)
-				{
-					case 0: image = new Image(GC.TARGET_L); 
-							image.alpha = 1; break;
-					case 1: image = new Image(GC.TARGET_M); 
-							image.alpha = .65;  break;
-					case 2: image = new Image(GC.TARGET_S);
-							image.alpha = .3; break;
-				}
+				image = new Image(GC.getClippedImg(GC.targetingGraphicsBoxes[i])); 
+				image.alpha = 1/Math.pow(3,i);
 				targets.push(image);
 				addGraphic(targets[i]);
 			}
@@ -39,7 +32,7 @@ package
 		public function getPos():Array {
 			return [x,y];
 		}
-			
+
 		public function setAngle(angle:Number):void {
 			for (var i:int = 1; i < GC.targettingNo; i++) {
 				targets[i].x = -Math.sin(angle)*GC.targettingOffsets[i-1] - GC.targettingSizes[i];

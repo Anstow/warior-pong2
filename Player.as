@@ -43,7 +43,7 @@ package
 			// Set the hitbox
 			setHitbox(GC.playerWidth, GC.playerHeight);
 			// Add sprites
-			image = new Image(GC.PLAYER);
+			image = new Image(GC.getClippedImg(GC.playerGraphicsBoxes[ident]));
 			addGraphic(image);
 
 			aimEntity = new AimEntity([x,y]);

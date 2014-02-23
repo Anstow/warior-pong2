@@ -74,6 +74,11 @@ package
 			[0, 0, 70, 20],
 			[0, 0, 70, 20]
 		];
+		public static var selectorGraphicsBoxes:Array = [
+			[0, 0, 70, 20],
+			[0, 0, 70, 20],
+			[0, 0, 70, 20]
+		];
 
 		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
@@ -112,13 +117,6 @@ package
 		];
 		
 		[Embed(source = './assets/spritesheet.png')] public static const ASSETS:Class;
-
-		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
-		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
-		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class;
-		[Embed(source = './assets/targeta4.png')] public static const TARGET_L:Class;
-		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
-		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
 
 		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
 			if (!src) src = ASSETS;
