@@ -17,6 +17,8 @@ package
 		private var image : Image;
 		public var fireCounter : Number = 0;
 
+		public var modeAim:Boolean = true;
+
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
 			// Set the initial velocity of the player
 			vel = new Vector.<Number>(2, true);
@@ -68,24 +70,30 @@ package
 
 		public function checkInput():void {
 			// Check for input
-			if (input.check("left_target"+id)) {
-				// Target left
-				angle += GC.targettingAngleChange;
-				// clamp the angle to the region
-				if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
-				aimEntity.setAngle(angle);
+			if (modeAim) {
+				if (input.check("left_target"+id)) {
+					// Target left
+					angle += GC.targettingAngleChange;
+					// clamp the angle to the region
+					if (angle > GC.targettingAngleClamp) angle = GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
+				}
+				if (input.check("right_target"+id)) {
+					// Target right
+					angle -= GC.targettingAngleChange;
+					if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
+					aimEntity.setAngle(angle);
+				}
+			} else {
+				if (input.check("left"+id)) {
+					vel[0] -= GC.moveSpeed;
+				}
+				if (input.check("right"+id)) {
+					vel[0] += GC.moveSpeed;
+				}
 			}
-			if (input.check("right_target"+id)) {
-				// Target right
-				angle -= GC.targettingAngleChange;
-				if (angle < -GC.targettingAngleClamp) angle = -GC.targettingAngleClamp;
-				aimEntity.setAngle(angle);
-			}
-			if (input.check("left"+id)) {
-				vel[0] -= GC.moveSpeed;
-			}
-			if (input.check("right"+id)) {
-				vel[0] += GC.moveSpeed;
+			if (input.pressed("switch_mode" + id)) {
+				modeAim = !modeAim;
 			}
 		}
 

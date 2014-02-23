@@ -22,15 +22,24 @@ package
 			//up0: [Key.W, 188],
 			//down0: [Key.S, Key.O],
 			left_target0: [Key.A],
+			right0: [Key.D , Key.E],
+			left0: [Key.A],
 			right_target0: [Key.D , Key.E],
+			switch_mode0: [Key.W, 188],
 			//shoot0: [Key.S, Key.O],
 			// The keys for player 1
-			left_target1: [Key.LEFT], // , Key.D],
-			right_target1: [Key.RIGHT], // , Key.N],
+			left_target1: [Key.LEFT],
+			right_target1: [Key.RIGHT],
+			left1: [Key.LEFT],
+			right1: [Key.RIGHT],
+			switch_mode1: [Key.UP],
 			//shoot1: [Key.DOWN],
 			// The keys for player 2 this requires qwerty
-			left_target2: [Key.H],
-			right_target2: [Key.K],
+			left_target2: [Key.H], // , Key.D],
+			right_target2: [Key.K], // , Key.N],
+			left2: [Key.H], // , Key.D],
+			right2: [Key.K], // , Key.N],
+			switch_mode2: [Key.U], // , Key.G],
 
 			// Other used keys
 			//skip: [191, 192],
@@ -57,7 +66,7 @@ package
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 
-		public static var targettingAngleChange : Number = 0.1;
+		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
 		public static var targettingNo:int = 3; // no. of targeting circles?
 		public static var targettingSizes:Array = [ 5, 3, 2 ]; // radius for the targeting circles in pixels
