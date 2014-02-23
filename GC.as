@@ -89,7 +89,7 @@ package
 				level: 0,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20], // width, height
-				graphic_box: [0,0,18,20] // x,y,w,h
+				graphic_box: [0,20,18,20] // x,y,w,h
 			},
 			{
 				aiType: "bouncer",
@@ -101,7 +101,7 @@ package
 			}
 		];
 		
-		[Embed(source = './assets/shipa1.png')] public static const ASSETS:Class;
+		[Embed(source = './assets/spritesheet.png')] public static const ASSETS:Class;
 
 		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
 		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
