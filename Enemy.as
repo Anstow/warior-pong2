@@ -4,7 +4,7 @@ package
 	import flash.display.Sprite;
 	import flash.filters.GlowFilter;
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.PreRotation;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
 	
 	import enemies.*;
@@ -20,7 +20,7 @@ package
 
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
-		private var image : PreRotation;
+		private var image : Image;
 
 		private var colTypes:Array;
 
@@ -51,10 +51,10 @@ package
 		}
 
 		public function setSprite():void {
-			image = new PreRotation(GC.getClippedImg(GC.enemies[id].graphic_box), 32, true);
+			image = new Image(GC.getClippedImg(GC.enemies[id].graphic_box));
+			//image.smooth = true;
 			image.centerOrigin();
 			addGraphic(image);
-			image.angle = 90;
 		}
 		
 		override public function update():void {
@@ -84,7 +84,6 @@ package
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
 				var collisionData : Array = Level.CalculateCollideTimes([0,0], remainingVel, [left,right,top,bottom]);
-				trace(right);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
