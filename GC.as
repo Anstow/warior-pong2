@@ -16,7 +16,6 @@ package
 		public static const windowWidth:int = 960;
 		public static const FPS:int = 60;
 
-
 		// Input stuff
 		public static var inputKeys:Object = {
 			// The keys for player 0

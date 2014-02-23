@@ -1,8 +1,13 @@
 package
 {
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.PreRotation;
 	import net.flashpunk.FP;
+	import assets.Shipa;
+	import flash.text.engine.GraphicElement;
+	import flash.display.Sprite; 
+    import flash.display.Shape; 
+    import flash.display.Graphics; 
 	
 	public class Enemy extends Entity
 	{
@@ -12,7 +17,7 @@ package
 		public var speed : Number;
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
-		private var image : Image;
+		private var image : PreRotation;
 
 		private var colTypes:Array;
 
@@ -33,9 +38,10 @@ package
 			// set possition
 			super(pos[0], pos[1]);
 			// Set the hitbox
-			setHitbox(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1]);
+			setHitbox(GC.enemies[id].hitbox[0], GC.enemies[id].hitbox[1], GC.enemies[id].hitbox[0]/2, GC.enemies[id].hitbox[1]/2);
 			// Add sprites
-			image = new Image(GC.BOUNCER);
+			image = new PreRotation(GC.BOUNCER, 32, true);
+			image.centerOrigin();
 			addGraphic(image);
 			
 			aiCounter = 0;
@@ -45,6 +51,8 @@ package
 		
 		override public function update():void {
 			super.update();
+
+			image.angle += 0.6;
 
 			runAI();
 			updateSim();
@@ -74,7 +82,7 @@ package
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
-				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [0,GC.playerWidth,0, GC.playerHeight]);
+				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [left,right,top,bottom]);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
