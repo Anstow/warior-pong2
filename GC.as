@@ -48,7 +48,7 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 2;
+		public static var noPlayers : int = 3;
 		public static var playerStartHeight : int = 50;
 		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 
@@ -82,6 +82,7 @@ package
 			{
 				aiType: "bouncer",
 				speed: 0.5,
+				level: 1,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20]
 			}

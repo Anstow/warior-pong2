@@ -11,7 +11,10 @@ package
 		public var vel : Vector.<Number>;
 		public var id : int;
 		public var muted : Boolean;
+
 		public var speed : Number;
+		public var level : int;
+
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
 		public var image : PreRotation;
@@ -30,6 +33,7 @@ package
 			// set collide type
 			type = GC.enemies[id].aiType;
 			speed = GC.enemies[id].speed;
+			level = GC.enemies[id].level;
 			aiRepeat = GC.enemies[id].ai_repeat;
 			this.muted = muted;
 			// set possition
@@ -159,6 +163,7 @@ package
 				// Increase score or relevant player
 				// b.playerShot;
 				if (world) world.remove(this); // I like these belts and braces
+				b.hitEnemy(level);
 			}
 		}
 

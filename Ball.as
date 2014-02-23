@@ -123,10 +123,21 @@ package
 			} else if (y + GC.ballRadius*2 > GC.windowHeight) {
 				y = GC.windowHeight - GC.playerHeight - 1;
 				vel[1] *= -1;
+				hitBottom();
 			}
 		}
 
+		public function hitEnemy(level:int):void {
+			// If at some point I implement new balls level may become
+			// necessery
+			remove();
+		}
+
 		public function hitBottom():void {
+			remove();
+		}
+		
+		public function remove():void {
 			if (world) world.remove(this);
 		}
 	}
