@@ -24,7 +24,7 @@
 		/**
 		 * The FlashPunk major version.
 		 */
-		public static const VERSION:String = "1.6";
+		public static const VERSION:String = "1.7.2";
 		
 		/**
 		 * Width of the game.
@@ -130,7 +130,11 @@
 		public static function get world():World { return _world; }
 		public static function set world(value:World):void
 		{
-			if (_world == value) return;
+			if (_goto) {
+				if (_goto == value) return;
+			} else {
+				if (_world == value) return;
+			}
 			_goto = value;
 		}
 		
@@ -209,7 +213,7 @@
 		/**
 		 * Finds the sign of the provided value.
 		 * @param	value		The Number to evaluate.
-		 * @return	1 if value > 0, -1 if value < 0, and 0 when value == 0.
+		 * @return	1 if value &gt; 0, -1 if value &lt; 0, and 0 when value == 0.
 		 */
 		public static function sign(value:Number):int
 		{
@@ -534,7 +538,7 @@
 		}
 		
 		/**
-		 * A pseudo-random Number produced using FP's random seed, where 0 <= Number < 1.
+		 * A pseudo-random Number produced using FP's random seed, where 0 &lt;= Number &lt; 1.
 		 */
 		public static function get random():Number
 		{
@@ -544,7 +548,7 @@
 		
 		/**
 		 * Returns a pseudo-random uint.
-		 * @param	amount		The returned uint will always be 0 <= uint < amount.
+		 * @param	amount		The returned uint will always be 0 &lt;= uint &lt; amount.
 		 * @return	The uint.
 		 */
 		public static function rand(amount:uint):uint
@@ -911,7 +915,14 @@
 		 */
 		public static function sort(object:Object, ascending:Boolean = true):void
 		{
-			if (object is Array || object is Vector.<*>) quicksort(object, 0, object.length - 1, ascending);
+			if (object is Array || object is Vector.<*>)
+			{
+				// Only need to sort the array if it has more than one item.
+				if (object.length > 1)
+				{
+					quicksort(object, 0, object.length - 1, ascending);
+				}
+			}
 		}
 		
 		/**
@@ -922,12 +933,19 @@
 		 */
 		public static function sortBy(object:Object, property:String, ascending:Boolean = true):void
 		{
-			if (object is Array || object is Vector.<*>) quicksortBy(object, 0, object.length - 1, ascending, property);
+			if (object is Array || object is Vector.<*>)
+			{
+				// Only need to sort the array if it has more than one item.
+				if (object.length > 1)
+				{
+					quicksortBy(object, 0, object.length - 1, ascending, property);
+				}
+			}
 		}
 		
 		/** @private Quicksorts the array. */ 
 		private static function quicksort(a:Object, left:int, right:int, ascending:Boolean):void
-		{
+		{		
 			var i:int = left, j:int = right, t:Number,
 				p:* = a[Math.round((left + right) * .5)];
 			if (ascending)
@@ -964,7 +982,7 @@
 		
 		/** @private Quicksorts the array by the property. */ 
 		private static function quicksortBy(a:Object, left:int, right:int, ascending:Boolean, property:String):void
-		{
+		{			
 			var i:int = left, j:int = right, t:Object,
 				p:* = a[Math.round((left + right) * .5)][property];
 			if (ascending)
