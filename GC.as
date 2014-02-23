@@ -74,6 +74,11 @@ package
 			[0, 0, 70, 20],
 			[0, 0, 70, 20]
 		];
+		public static var selectorGraphicsBoxes:Array = [
+			[0, 0, 70, 20],
+			[0, 0, 70, 20],
+			[0, 0, 70, 20]
+		];
 
 		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
