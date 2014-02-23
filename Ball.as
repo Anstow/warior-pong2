@@ -15,7 +15,9 @@ package
 		private var playerShot:int;
 		private var image:Image;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1) {
+		public var level : int;
+
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=0) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
 			// I can't think of anything to collide with at the moment.
@@ -28,6 +30,7 @@ package
 			type = "ball";
 			this.muted = muted;
 			this.playerShot = playerShot;
+			this.level = level;
 			// set possition
 			super(pos[0], pos[1]);
 			// Set the hitbox
@@ -130,7 +133,9 @@ package
 		public function hitEnemy(level:int):void {
 			// If at some point I implement new balls level may become
 			// necessery
-			removeThis();
+			if (this.level < level) {
+				removeThis();
+			}
 		}
 
 		public function hitBottom():void {
