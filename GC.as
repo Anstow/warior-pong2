@@ -99,11 +99,18 @@ package
 		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
 		public static var spawnGap: int = 180; // In seconds/60
 
+		public static var spawnValues:Array = [
+			[0, 1], // [Position in enemies, dificulty]
+			[1, 3],
+			[2, 10]
+		];
+
 		public static var enemies : Array = [
 			{
 				aiType: "bouncer",
 				speed: 0.5,
 				level: 0,
+				addable: true,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20], // width, height
 				graphic_box: [0,20,18,20] // x,y,w,h
@@ -112,6 +119,7 @@ package
 				aiType: "bouncer",
 				speed: 0.5,
 				level: 1,
+				addable: true,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20]
@@ -120,6 +128,7 @@ package
 				aiType: "tail_head",
 				speed: 0.5,
 				level: 1,
+				addable: true,
 				ai_repeat: 1, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20],
@@ -133,6 +142,7 @@ package
 				aiType: "tail_piece",
 				speed: 0.5,
 				level: 3,
+				addable: false,
 				ai_repeat: -1, // We don't want any ai to run
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20]

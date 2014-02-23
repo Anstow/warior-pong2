@@ -27,8 +27,10 @@ package
 		private var loadLevelCallback:Function;
 
 		public var aiCounter : int = 0;
-		public var nextSpawn : int = -1;
-		public var currentDificultly : int = 1;
+		public var nextSpawn : int = 1;
+		public var currentDificultly : Number = 1;
+
+		public var mobCount : int = 0;
 
 		public function Level (loadLevelCallback:Function = null, mode:int=0, replayData:Object = null) {
 			// The game input is defined here 0 is the normal mode
@@ -93,11 +95,8 @@ package
 		public function spawner():void {
 			aiCounter++;
 			if (aiCounter == nextSpawn) {
-				currentDificultly++;
+				currentDificultly += 0.5;
 				nextSpawn += GC.spawnGap;
-				for (var i : int = 0; i < currentDificultly; i++) {
-					spawnEnemy();
-				}
 			}
 		}
 
@@ -123,6 +122,13 @@ package
 		public override function add(e:Entity):Entity {
 			e.renderTarget = worldBuffer;
 			return super.add(e);
+		}
+
+		public override function remove(e:Entity):Entity {
+			if (e is Enemy) {
+				// Check 
+			}
+			return super.remove(e);
 		}
 
 		//}

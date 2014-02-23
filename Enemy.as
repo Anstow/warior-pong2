@@ -174,7 +174,6 @@ package
 			var b :Ball = collide("ball", x, y) as Ball;
 			if (b) {
 				hitByBall(b);
-				b.hitEnemy(level);
 			}
 		}
 
@@ -182,6 +181,7 @@ package
 			// Increase score or relevant player
 			// b.playerShot;
 			if (world) world.remove(this); // I like these belts and braces
+			b.hitEnemy(level);
 		}
 
 		public static function createEnemy(ident:int, pos:Array, muted:Boolean):Enemy {
