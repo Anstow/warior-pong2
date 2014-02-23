@@ -112,7 +112,7 @@ package
 
 		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
 			if (!src) src = ASSETS;
-			var dataBitmap : BitmapData = new BitmapData(clipRect[2], clipRect[3]);
+			var dataBitmap : BitmapData = new BitmapData(clipRect[2], clipRect[3], true, 0x00000000);
 			var img : Image = new Image(src, new Rectangle(clipRect[0], clipRect[1], clipRect[2], clipRect[3]));
 			img.render(dataBitmap, new Point(0,0), new Point(0,0));
 			return dataBitmap;

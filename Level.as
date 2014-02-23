@@ -169,8 +169,10 @@ package
 				if (collisions[i] < collisions[minPosition])
 					minPosition = i;
 			}
-			if (minPosition != 4)
+			if (minPosition != 4) {
+				trace(collisionBox, boundingBox, vel);
 				return [collisions[minPosition], minPosition];
+			}
 			else
 				return null;
 		}

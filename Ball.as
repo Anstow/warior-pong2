@@ -110,18 +110,18 @@ package
 			}
 			// Resorting to terrible clampling
 			// TODO: don't rely on something quite so terrible
-			if (x < 0) {
-				x = 0;
+			if (left < 0) {
+				x = originX;
 				vel[0] *= -1;
-			} else if (x + GC.ballRadius*2 > GC.windowWidth) {
-				x = GC.windowWidth - GC.playerWidth - 1;
+			} else if (right > GC.windowWidth) {
+				x = GC.windowWidth + originX - width;
 				vel[0] *= -1;
 			}
-			if (y < 0) {
-				y = 0;
+			if (top < 0) {
+				y = originY;
 				vel[1] *= -1;
-			} else if (y + GC.ballRadius*2 > GC.windowHeight) {
-				y = GC.windowHeight - GC.playerHeight - 1;
+			} else if (bottom > GC.windowHeight) {
+				y = GC.windowHeight + originY - height;
 				vel[1] *= -1;
 				hitBottom();
 			}
