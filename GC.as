@@ -75,7 +75,7 @@ package
 			[0, 0, 70, 20]
 		];
 
-		public static var selectorRotateSpeed:Number = 0.4;
+		public static var selectorRotateSpeed:Number = 0.6;
 		public static var selectorGraphicsBoxes:Array = [
 			[70,0,28,28],
 			[70,0,28,28],
