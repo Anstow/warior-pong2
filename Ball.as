@@ -17,7 +17,7 @@ package
 
 		public var level : int;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=1) {
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=0) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
 			// I can't think of anything to collide with at the moment.
