@@ -124,10 +124,10 @@ package
 				hitbox: [18, 20],
 				graphic_box: [0,20,18,20],
 				turn_angle_cap: 0.01,
-				turn_frequency: 300,
+				turn_frequency: 200,
 				tailPiece: 3,
 				tailLength: 6,
-				tailSeparation: 10 // In pixells
+				tailSeparation: 20 // In frames
 			},
 			{
 				aiType: "tail_piece",

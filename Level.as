@@ -27,7 +27,7 @@ package
 		private var loadLevelCallback:Function;
 
 		public var aiCounter : int = 0;
-		public var nextSpawn : int = 1;
+		public var nextSpawn : int = -1;
 		public var currentDificultly : int = 1;
 
 		public function Level (loadLevelCallback:Function = null, mode:int=0, replayData:Object = null) {
@@ -72,6 +72,8 @@ package
 				players.push(p);
 			}
 
+			spawnEnemy(2);
+
 			input.restart();
 			// TODO: reset function
 		}
@@ -84,8 +86,8 @@ package
 		}
 			
 		public function spawnEnemyAt(pos:Array, t:int = -1):void {
-			if (t == -1) t = FP.rand(GC.enemies.length);
-			add(Enemy.createEnemy(0, pos, 0 != (mode & M_MUTED)));
+			if (t == -1) t = 0; //FP.rand(GC.enemies.length);
+			add(Enemy.createEnemy(t, pos, 0 != (mode & M_MUTED)));
 		}
 
 		public function spawner():void {
