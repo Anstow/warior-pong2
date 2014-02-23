@@ -52,7 +52,7 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 3;
+		public static var noPlayers : int = 2;
 		public static var playerStartHeight : int = 50;
 		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
 
