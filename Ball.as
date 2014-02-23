@@ -54,7 +54,8 @@ package
 			var remainingVel : Array = [vel[0],vel[1]];
 			// If we are moving (sufficiently fast) move!
 			while (remainingVel[0]*remainingVel[0] + remainingVel[1]*remainingVel[1] > 0.01) {
-				var collisionData : Array = Level.CalculateCollideTimes([x,y], remainingVel, [left,right,top,bottom]);
+				var collisionData : Array = Level.CalculateCollideTimes([0,0], remainingVel, [left,right,top,bottom]);
+				trace([left,right,top,bottom]);
 				if (collisionData) {
 					// We have collided so move to the colision point
 					x += remainingVel[0]*collisionData[0]; y += remainingVel[1]*collisionData[0];
@@ -130,14 +131,14 @@ package
 		public function hitEnemy(level:int):void {
 			// If at some point I implement new balls level may become
 			// necessery
-			remove();
+			removeThis();
 		}
 
 		public function hitBottom():void {
-			remove();
+			removeThis();
 		}
 		
-		public function remove():void {
+		public function removeThis():void {
 			if (world) world.remove(this);
 		}
 	}

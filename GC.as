@@ -2,8 +2,12 @@ package
 {
 	import flash.utils.ByteArray;
 	import com.adobe.serialization.json.JSON;
+	import flash.display.BitmapData;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
 
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.graphics.Image;
 
 	/**
 	 * ...
@@ -82,12 +86,23 @@ package
 			{
 				aiType: "bouncer",
 				speed: 0.5,
+				level: 0,
+				ai_repeat: 240, // The ai is re-ran after this many frames passes
+				hitbox: [18, 20], // width, height
+				graphic_box: [0,0,18,20] // x,y,w,h
+			},
+			{
+				aiType: "bouncer",
+				speed: 0.5,
 				level: 1,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
-				hitbox: [18, 20]
+				hitbox: [18, 20],
+				graphic_box: [0,0,18,20]
 			}
 		];
 		
+		[Embed(source = './assets/shipa1.png')] public static const ASSETS:Class;
+
 		[Embed(source = './assets/player.png')] public static const PLAYER:Class;
 		[Embed(source = './assets/selector1.png')] public static const SELECTOR:Class;
 		[Embed(source = './assets/shipa1.png')] public static const BOUNCER:Class;
@@ -95,6 +110,13 @@ package
 		[Embed(source = './assets/targeta5.png')] public static const TARGET_M:Class;
 		[Embed(source = './assets/targeta6.png')] public static const TARGET_S:Class;
 
+		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
+			if (!src) src = ASSETS;
+			var dataBitmap : BitmapData = new BitmapData(clipRect[2], clipRect[3]);
+			var img : Image = new Image(src, new Rectangle(clipRect[0], clipRect[1], clipRect[2], clipRect[3]));
+			img.render(dataBitmap, new Point(0,0), new Point(0,0));
+			return dataBitmap;
+		}
 		
 		public function GC ():void
 		{
