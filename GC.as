@@ -126,7 +126,7 @@ package
 				value: 10,
 				ai_repeat: 240, // The ai is re-ran after this many frames passes
 				hitbox: [18, 20],
-				graphic_box: [162,30,18,20]
+				graphic_box: [162,50,18,20]
 			},
 			{
 				aiType: "tail_head",
