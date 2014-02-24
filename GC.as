@@ -130,7 +130,7 @@ package
 			},
 			{
 				aiType: "tail_head",
-				speed: 1.5,
+				speed: 0.5,
 				level: 1,
 				addable: true,
 				value: 20,
@@ -140,7 +140,7 @@ package
 				turn_angle_cap: 0.01,
 				turn_frequency: 200,
 				tailPiece: 3,
-				tailLength: 18,
+				tailLength: 9,
 				tailSeparation: 20 // In frames
 			},
 			{
