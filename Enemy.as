@@ -22,8 +22,8 @@ package
 		public var aiCounter : Number;
 		private var image : Image;
 		public var angle : Number;
-
-		private var colTypes:Array;
+		public var value:int = 0;
+		public var killedBy:int = -1;
 
 		public function Enemy(ident:int, pos:Array, muted:Boolean) {
 			// Set up the velocity vector
@@ -32,13 +32,12 @@ package
 			vel[1] = 0;
 			// set the id of the player
 			id  = ident;
-			// I can't think of anything to collide with at the moment.
-			colTypes = [];
 			// set collide type
 			type = GC.enemies[id].aiType;
 			speed = GC.enemies[id].speed;
 			level = GC.enemies[id].level;
 			aiRepeat = GC.enemies[id].ai_repeat;
+			value = GC.enemies[id].value;
 			this.muted = muted;
 			// set possition
 			super(pos[0], pos[1]);
@@ -174,13 +173,19 @@ package
 			var b :Ball = collide("ball", x, y) as Ball;
 			if (b) {
 				hitByBall(b);
-				b.hitEnemy(level);
 			}
 		}
 
 		public function hitByBall(b:Ball):void {
 			// Increase score or relevant player
 			// b.playerShot;
+			removeThis(b);
+			b.hitEnemy(level);
+		}
+
+		public function removeThis(b:Ball):void {
+			// Don't do this the other way around otherwise the score won't be added
+			if (b) killedBy = b.playerShot;
 			if (world) world.remove(this); // I like these belts and braces
 		}
 

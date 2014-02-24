@@ -24,7 +24,6 @@ package enemies
 		}
 
 		override public function hitByBall(b:Ball):void {
-			trace(level);
 			b.hitEnemy(level);
 		}
 	}

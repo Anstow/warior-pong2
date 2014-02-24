@@ -11,21 +11,14 @@ package
 		public var vel : Array;
 		public var muted : Boolean;
 
-		private var colTypes:Array;
-		private var playerShot:int;
+		public var playerShot:int;
 		private var image:Image;
 
 		public var level : int;
 
-		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=1) {
+		public function Ball(pos:Array, vel:Array, muted:Boolean, playerShot:int = -1, level:int=0) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
-			// I can't think of anything to collide with at the moment.
-			colTypes = [];
-			// Collide with the players
-			for (var i:int = 0; i < GC.noPlayers; i++) {
-				colTypes.push("player" + i);
-			}
 			// set collide type
 			type = "ball";
 			this.muted = muted;
