@@ -70,15 +70,15 @@ package
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [ -1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 		public static var playerGraphicsBoxes:Array = [
-			[0, 0, 70, 20],
-			[0, 0, 70, 20],
+			[0, 20, 70, 20],
+			[0, 60, 70, 20],
 			[0, 0, 70, 20]
 		];
 
 		public static var selectorRotateSpeed:Number = 0.6;
 		public static var selectorGraphicsBoxes:Array = [
-			[70,0,28,28],
-			[70,0,28,28],
+			[70,28,28,28],//[98,92,28,28],
+			[70,84,28,28],
 			[70,0,28,28]
 		];
 
@@ -118,7 +118,7 @@ package
 			},
 			{
 				aiType: "tail_head",
-				speed: 1.5,
+				speed: 0.5,
 				level: 1,
 				ai_repeat: 1, // The ai is re-ran after this many frames passes
 				hitbox: [13,13],
