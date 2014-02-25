@@ -52,20 +52,12 @@ package
 			mute: [Key.M]
 		};
 		
-		public static var noPlayers : int = 2;
-		public static var playerStartHeight : int = 50;
-		//public static var playersStart: Array = [ [50, 520 - playerHeight], [960 - playerWidth - 50 , 520 - playerHeight]];
-
 		public static var EditorKeys:Object = {
 		};
 
-		public static var scoreYPos : int = 20;
-
-		public static var ballSpeed:Number = 7;
-		public static var ballRadius:int = 5;
-		public static var ballDamp:Array = [1, 1]; // [xDamp, yDamp]
-		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
-
+		// Player stuff
+		public static var noPlayers : int = 2;
+		public static var playerStartHeight : int = 50;
 		public static var moveSpeed:Number = 1.5;
 		public static var playerWidth:int = 70;
 		public static var playerHeight:int = 20;
@@ -77,13 +69,7 @@ package
 			[0, 0, 70, 20]
 		];
 
-		public static var selectorRotateSpeed:Number = 0.6;
-		public static var selectorGraphicsBoxes:Array = [
-			[70,28,28,28],//[98,92,28,28],
-			[70,84,28,28],
-			[70,0,28,28]
-		];
-
+		// Player targetting stuff
 		public static var targettingAngleChange : Number = 0.05;
 		public static var targettingAngleClamp : Number = Math.PI/6;
 		public static var targettingNo:int = 3; // no. of targeting circles?
@@ -97,6 +83,28 @@ package
 			[188,14,4,4],
 		];
 
+		// Player selector stuff
+		public static var selectorRotateSpeed:Number = 0.6;
+		public static var selectorGraphicsBoxes:Array = [
+			[70,0,28,28],
+			[70,0,28,28],
+			[70,0,28,28]
+		];
+
+		// Player score stuff
+		public static var scoreYPos : int = 20;
+
+		// Ball stuff
+		public static var ballSpeed:Number = 7;
+		public static var ballRadius:int = 5;
+		public static var ballDamp:Array = [1, 1]; // [xDamp, yDamp]
+		public static var ballBounce:Array = [-1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+
+		// Power Up stuff
+		public static var powerUpWidth:int = 10;
+		public static var powerUpHeight:int = 10;
+
+		// Enemy spawn stuff
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
 		public static var spawnYLimits: Array = [10,60]; //[yTopClose, yTopFar]
 		public static var spawnGap: int = 180; // In seconds/60
@@ -107,6 +115,7 @@ package
 			[2, 10, 1]
 		];
 
+		// Enemy types
 		public static var enemies : Array = [
 			{
 				aiType: "bouncer",
@@ -155,8 +164,10 @@ package
 			}
 		];
 		
+		// Assets
 		[Embed(source = './assets/spritesheet.png')] public static const ASSETS:Class;
 
+		// Getting the assets
 		public static function getClippedImg(clipRect:Array, src:Class = null):BitmapData {
 			if (!src) src = ASSETS;
 			var dataBitmap : BitmapData = new BitmapData(clipRect[2], clipRect[3], true, 0x00000000);
