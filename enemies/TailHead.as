@@ -30,13 +30,14 @@ package enemies
 
 			// Add the tail positions
 			for (var i : int = 0; i < tailLength * tailSeparation; i++) {
-				tailPiecePath.push([x,y,angle]);
+				tailPiecePath.push([x,y,Angle]);
 			}
 			
 			// Add the tail elements
 			for (i = 0; i < tailLength; i++) {
 				tailPieces.push(new TailPiece(GC.enemies[ident].tailPiece, tailPiecePath[(i+1)*tailSeparation - 1], muted));
 			}
+			Angle = Math.PI/2;
 		}
 
 		override public function added():void {
@@ -64,7 +65,7 @@ package enemies
 
 			// And a new point to the beginning of the queue
 			tailPiecePath.reverse();
-			tailPiecePath.push([x,y,angle]);
+			tailPiecePath.push([x,y,Angle]);
 			tailPiecePath.reverse();
 
 			// Set tail positions
@@ -81,22 +82,22 @@ package enemies
 				turnAngle = FP.random * 2 * turn_angle_cap - turn_angle_cap;
 			}
 
-			angle += turnAngle;
+			Angle += turnAngle;
 
-			vel[0] = Math.cos(angle) * speed;
-			vel[1] = Math.sin(angle) * speed;
+			vel[0] = Math.sin(Angle) * speed;
+			vel[1] = -Math.cos(Angle) * speed;
 			
 			turnFreqCounter++;
 		}
 		
 		override public function bounceX(bounce:Number):void {
 			super.bounceX(bounce);
-			angle = Math.PI-angle
+			Angle = -Angle
 		}
 
 		override public function bounceY(bounce:Number):void {
 			super.bounceY(bounce);
-			angle = -angle
+			Angle = Math.PI-Angle
 		}
 	}
 }

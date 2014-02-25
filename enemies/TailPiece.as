@@ -20,7 +20,7 @@ package enemies
 		public function set Pos(pos:Array):void {
 			x = pos[0];
 			y = pos[1];
-			angle = pos[2];
+			Angle = pos[2];
 		}
 
 		override public function hitByBall(b:Ball):void {

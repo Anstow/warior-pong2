@@ -21,7 +21,8 @@ package
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
 		private var image : Image;
-		public var angle : Number;
+		private var angle : Number;
+		private var imgAngle : Number = 0;
 		public var value:int = 0;
 		public var killedBy:int = -1;
 
@@ -48,6 +49,7 @@ package
 			queryAI();
 			// Sprites are added
 			setSprite();
+			Angle = 0;
 		}
 
 		public function setSprite():void {
@@ -55,6 +57,7 @@ package
 			//image.smooth = true;
 			image.centerOrigin();
 			addGraphic(image);
+			imgAngle += GC.enemies[id].graphic_box[4];
 			angle = 0;
 		}
 		
@@ -64,8 +67,6 @@ package
 			runAI();
 			updateSim();
 			checkCollisions(); // this may be a misnomer updateSim also does a fair bit of collision checking.
-
-			image.angle = -angle * 180 / Math.PI;
 		}
 
 		public function queryAI():void {
@@ -187,6 +188,16 @@ package
 			// Don't do this the other way around otherwise the score won't be added
 			if (b) killedBy = b.playerShot;
 			if (world) world.remove(this); // I like these belts and braces
+		}
+
+		public function set Angle(a:Number):void {
+			angle = a;
+
+			if (image) image.angle = (imgAngle - angle) * 180 / Math.PI;
+		}
+		
+		public function get Angle():Number {
+			return angle;
 		}
 
 		public static function createEnemy(ident:int, pos:Array, muted:Boolean):Enemy {

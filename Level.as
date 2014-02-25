@@ -97,6 +97,8 @@ package
 			currentDificultly = 10;
 			nextPowerUp = GC.initialPowerUpGap;
 
+			spawnEnemy(2);
+
 			input.restart();
 			// TODO: reset function
 		}
