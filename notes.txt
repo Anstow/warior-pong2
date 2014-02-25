@@ -1,3 +1,21 @@
+TODO:
+
+Power ups
+New enemies
+Loose conditions
+Start Screen
+Player Select
+
+
+TO MAKE:
+
+Ball/Bullet assets
+Power Up assets
+Score Box assets
+Score Box text fond
+Music
+
+
 Asset Positions:
 
 player pink:     [0,   0,   70,   20]
@@ -48,21 +66,3 @@ bouncer red:     [144, 64,  18,   20]
 bouncer blue:    [162, 50,  18,   20]
 bouncer yellow:  [180, 30,  18,   20]
 bouncer orange:  [180, 50,  18,   20]
-
-
-TO MAKE:
-
-Ball/Bullet assets
-Power Up assets
-Score Box assets
-Score Box text fond
-Music
-
-
-TODO:
-
-Power ups
-New enemies
-Loose conditions
-Start Screen
-
