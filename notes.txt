@@ -1,11 +1,53 @@
 Asset Positions:
 
-player pink:   [0,   0,   70,   20]
-player green:  [0,   20,  70,   40]
-player red:    [0,   40,  70,   20]
-player blue:   [0,   60,  70,   20]
-player yellow: [0,   80,  70,   20]
-player orange: [0,   100, 70,   20]
+player pink:     [0,   0,   70,   20]
+player green:    [0,   20,  70,   40]
+player red:      [0,   40,  70,   20]
+player blue:     [0,   60,  70,   20]
+player yellow:   [0,   80,  70,   20]
+player orange:   [0,   100, 70,   20]
+
+selector pink:   [70,  0,   28,   28]
+selector green:  [98,  92,  28,   28]
+selector red:    [70,  28,  28,   28]
+selector blue:   [70,  56,  28,   28]
+selector yellow: [70,  84,  28,   28]
+selector orange: [70,  64,  28,   28]
+
+target 64x64:    [98,  0,   64,   64]
+target 20x20:    [162, 0,   20,   20]
+target 14x14:    [182, 0,   14,   14]
+target 10x10:    [162, 20,  10,   10]
+target 6x6:      [182, 14,  6,     6]
+target 4x4:      [188, 14,  4,     4]
+
+triangle pink:	 [198, 13,  13,   13]
+triangle green:  [198, 26,  13,   13]
+triangle red:    [191, 89,  13,   13]
+triangle blue:   [191, 102, 13,   13]
+triangle yellow: [191, 115, 13,   13]
+triangle orange: [198,  0,  13,   13]
+
+star pink:	     [139, 102, 13,   13]
+star green:      [152, 102, 13,   13]
+star red:        [126, 115, 13,   13]
+star blue:       [139, 115, 13,   13]
+star yellow:     [152, 115, 13,   13]
+star orange:     [126, 102, 13,   13]
+
+diamond pink:	 [165, 89,  13,   13]
+diamond green:   [178, 89,  13,   13]
+diamond red:     [178, 102, 13,   13]
+diamond blue:    [165, 115, 13,   13]
+diamond yellow:  [178, 115, 13,   13]
+diamond orange:  [165, 102, 13,   13]
+
+bouncer pink:	 [126, 64,  18,   20]
+bouncer green:   [162, 30,  18,   20]
+bouncer red:     [144, 64,  18,   20]
+bouncer blue:    [162, 50,  18,   20]
+bouncer yellow:  [180, 30,  18,   20]
+bouncer orange:  [180, 50,  18,   20]
 
 
 TO MAKE:

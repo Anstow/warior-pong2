@@ -64,8 +64,8 @@ package
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [ -1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
 		public static var playerGraphicsBoxes:Array = [
-			[0, 0, 70, 20],
-			[0, 0, 70, 20],
+			[0, 20, 70, 20],
+			[0, 60, 70, 20],
 			[0, 0, 70, 20]
 		];
 
