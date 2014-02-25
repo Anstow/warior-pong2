@@ -1,7 +1,6 @@
 package
 {
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Image;
 	
 	public class Player extends Entity
 	{
@@ -13,7 +12,7 @@ package
 
 		public var aimEntity : AimEntity;
 		public var angle : Number = 0;
-		private var image : Image;
+		private var image : MyPreRotation;
 		public var fireCounter : Number = 0;
 
 		public var modeAim:Boolean = true;
@@ -34,7 +33,7 @@ package
 			// Set the hitbox
 			setHitbox(GC.playerWidth, GC.playerHeight);
 			// Add sprites
-			image = new Image(GC.getClippedImg(GC.playerGraphicsBoxes[ident]));
+			image = GC.getClippedImg(GC.playerGraphicsBoxes[ident]);
 			addGraphic(image);
 
 			aimEntity = new AimEntity([x,y], ident);

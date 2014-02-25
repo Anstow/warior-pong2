@@ -4,7 +4,6 @@ package
 	import flash.display.Sprite;
 	import flash.filters.GlowFilter;
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
 	
 	import enemies.*;
@@ -20,7 +19,7 @@ package
 
 		public var aiRepeat : Number;
 		public var aiCounter : Number;
-		private var image : Image;
+		private var image : MyPreRotation;
 		private var angle : Number;
 		private var imgAngle : Number = 0;
 		public var value:int = 0;
@@ -53,7 +52,7 @@ package
 		}
 
 		public function setSprite():void {
-			image = new Image(GC.getClippedImg(GC.enemies[id].graphic_box));
+			image = GC.getClippedImg(GC.enemies[id].graphic_box);
 			//image.smooth = true;
 			image.centerOrigin();
 			addGraphic(image);
@@ -193,7 +192,7 @@ package
 		public function set Angle(a:Number):void {
 			angle = a;
 
-			if (image) image.angle = (imgAngle - angle) * 180 / Math.PI;
+			if (image) image.frameAngle = (imgAngle + angle) * 180 / Math.PI;
 		}
 		
 		public function get Angle():Number {

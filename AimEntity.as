@@ -2,25 +2,23 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
-	import net.flashpunk.graphics.Image;
-	import net.flashpunk.graphics.PreRotation;
 
 	public class AimEntity extends Entity
 	{
 		public var targets : Vector.<Graphic>;
-		private var selectorImage : PreRotation;
+		private var selectorImage : MyPreRotation;
 
 		public function AimEntity(pos:Array, ident:int) {
 			super();
 			setPos(pos);
 
-			selectorImage = new PreRotation(GC.getClippedImg(GC.selectorGraphicsBoxes[ident]), 256, true);
+			selectorImage = GC.getClippedImg(GC.selectorGraphicsBoxes[ident]);
 			selectorImage.centerOrigin();
 			addGraphic(selectorImage);
 
 			targets = new Vector.<Graphic>();
 			for (var i : int = 0; i < GC.targettingNo; i++) {
-				var image : Image = new Image(GC.getClippedImg(GC.targetingGraphicsBoxes[i])); 
+				var image : MyPreRotation = GC.getClippedImg(GC.targetingGraphicsBoxes[i], 1); 
 				image.alpha = 1/Math.pow(3,i);
 				targets.push(image);
 				addGraphic(targets[i]);
