@@ -20,17 +20,19 @@ package
 		public static const M_RECORD:int = 16;
 
 		public var players:Array = [];
-		public var scores:Array = [];
 		public var scoreBoxes:Array =  [];
+		public var combindedScoreBox:ScoreBox;
+
 		private var input:GameInput;
 
 		public var worldBuffer:BitmapData;
 		private var mode:int;
 		private var loadLevelCallback:Function;
 
-		public var aiCounter : int = 0;
-		public var nextSpawn : int = 1;
-		public var currentDificultly : Number = 10;
+		public var aiCounter : int;
+		public var nextSpawn : int;
+		public var currentDificultly : Number;
+		public var nextPowerUp : Number;
 
 		public var mobCount : int = 0;
 
@@ -74,17 +76,26 @@ package
 
 			var p:Player;
 			for (var i : int = 0; i < GC.noPlayers; i++) {
+				// Find the x position to spawn the player and score box
 				var xPos:int = (i+1)*GC.windowWidth / (GC.noPlayers + 1);
+				// Create and spawn the player
 				p = new Player(i, [xPos - GC.playerWidth/2, GC.windowHeight - GC.playerStartHeight], input, 0 != (mode & M_MUTED));
-				trace("player" + i + " added");
 				add(p);
 				players.push(p);
-				scores.push(0);
+				// Create a new score and score box for the player set to 0
 				scoreBoxes.push(new ScoreBox([xPos, GC.scoreYPos],0,i));
 				add(scoreBoxes[i]);
 			}
 
-			spawnEnemy(2);
+			// Create the combined score
+			combindedScoreBox = new ScoreBox(GC.combindedScorePos,0);
+			add(combindedScoreBox);
+			
+				// Set up the spawn counters and difficulty
+			aiCounter = 0;
+			nextSpawn = 1;
+			currentDificultly = 10;
+			nextPowerUp = GC.initialPowerUpGap;
 
 			input.restart();
 			// TODO: reset function
@@ -97,6 +108,15 @@ package
 		public function spawnEnemyAt(pos:Array, t:int = -1):void {
 			if (t == -1) t = 0; //FP.rand(GC.enemies.length);
 			add(Enemy.createEnemy(t, pos, 0 != (mode & M_MUTED)));
+		}
+
+		public function createPowerUp(t:int = -1):void {
+			createPowerUpAt(getSpawnPos(), t);
+		}
+
+		public function createPowerUpAt(pos:Array, t:int = -1):void {
+			if (t == -1) t = 0; //FP.rand(GC.enemies.length);
+			add(PowerUp.createPowerUp(pos, GC.powerUpVel, 0 != (mode & M_MUTED)));
 		}
 
 		public function getSpawnPos():Array {
@@ -119,6 +139,11 @@ package
 						temp += GC.enemies[s[0]].value;
 						toSpawn.push([pos,s[0]]);
 					}
+				}
+
+				if (combindedScoreBox.Score > nextPowerUp) {
+					createPowerUp(0);
+					nextPowerUp+=GC.powerUpGap;
 				}
 			}
 			 
@@ -155,20 +180,20 @@ package
 			return super.add(e);
 		}
 
+		//}
+
 		public override function remove(e:Entity):Entity {
 			if (e is Enemy) {
 				// Check 
 				mobCount -= (e as Enemy).value;
 				currentDificultly += 0.5;
 				if ((e as Enemy).killedBy >= 0) {
-					scores[(e as Enemy).killedBy] += (e as Enemy).value;
-					scoreBoxes[(e as Enemy).killedBy].Score = scores[(e as Enemy).killedBy];
+					scoreBoxes[(e as Enemy).killedBy].Score += (e as Enemy).value;
 				}
+				combindedScoreBox.Score += (e as Enemy).value;
 			}
 			return super.remove(e);
 		}
-
-		//}
 
 		/*!
 		 * \brief This calculates the first collision (as a proportion of the velocity) of a box with a bounding box of your choice.

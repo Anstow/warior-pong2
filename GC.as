@@ -93,6 +93,7 @@ package
 
 		// Player score stuff
 		public static var scoreYPos : int = 20;
+		public static var combindedScorePos:Array = [windowWidth/2, 0];
 
 		// Ball stuff
 		public static var ballSpeed:Number = 7;
@@ -103,6 +104,10 @@ package
 		// Power Up stuff
 		public static var powerUpWidth:int = 10;
 		public static var powerUpHeight:int = 10;
+		public static var powerUpVel:Array = [0, 3];
+
+		public static var initialPowerUpGap:Number = 100;
+		public static var powerUpGap:Number = 200;
 
 		// Enemy spawn stuff
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]
