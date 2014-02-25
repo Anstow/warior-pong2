@@ -5,6 +5,7 @@ New enemies
 Loose conditions
 Start Screen
 Player Select
+Tailers tails tailing off (yes this was deliberate)
 
 
 TO MAKE:
