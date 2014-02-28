@@ -5,18 +5,22 @@ package
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Sfx;
 	import flash.utils.getQualifiedClassName;
+
+	import powerups.*;
 	
 	public class PowerUp extends Entity
 	{
+		public var id : int;
 		public var vel : Array;
 		public var muted : Boolean;
 
 		private var image:Image;
 		private var colTypes : Array;
 
-		public function PowerUp(pos:Array, vel:Array, muted:Boolean) {
+		public function PowerUp(id:int, pos:Array, vel:Array, muted:Boolean) {
 			// Set the initial velocity of the ball
 			this.vel = [vel[0],vel[1]];
+			this.id = id;
 			// Add collision with players
 			colTypes = [];
 			for (var i:int = 0; i < GC.noPlayers; i++) {
@@ -130,8 +134,14 @@ package
 			if (world) world.remove(this);
 		}
 
-		public static function createPowerUp(pos:Array, vel:Array, muted:Boolean):PowerUp {
-			return new PowerUp(pos, vel, muted);
+		public static function createPowerUp(id:int, pos:Array, vel:Array, muted:Boolean):PowerUp {
+			switch (id) 
+			{
+				case 0:
+					return new ExtraBall(id, pos, vel, muted);
+				default:
+					return null;
+			}
 		}
 	}
 }

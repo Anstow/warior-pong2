@@ -15,6 +15,7 @@ package
 		private var image : MyPreRotation;
 		public var fireCounter : Number = 0;
 
+		private var noBallsFired : int;
 		public var modeAim:Boolean = true;
 
 		public function Player(ident:int, pos:Array, inp:GameInput, muted:Boolean) {
@@ -182,6 +183,18 @@ package
 		}
 
 		public function checkCollisions():void {
+		}
+
+		// Getter, setters for powerup properties
+		public function get NoBallsFired():uint {
+			return noBallsFired;
+		}
+
+		public function set NoBallsFired(balls:uint):void {
+			// Do some bounds checking
+			if (balls >= GC.playerMinBallsFired && balls <= GC.playerMaxBallsFired) {
+				noBallsFired = balls;
+			}
 		}
 	}
 }

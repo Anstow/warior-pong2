@@ -63,6 +63,9 @@ package
 		public static var playerHeight:int = 20;
 		public static var playerDamp:Array = [.8, .8]; // [xDamp, yDamp]
 		public static var playerBounce:Array = [ -1, -1, -1, -1, -1]; // [left-wall, right-wall, top-wall, bottom-wall, other]
+		public static var playerStartBallsFired:uint = 1;
+		public static var playerMinBallsFired:uint = 1;
+		public static var playerMaxBallsFired:uint = 5;
 		public static var playerGraphicsBoxes:Array = [
 			[0, 20, 70, 20],
 			[0, 60, 70, 20],
@@ -108,6 +111,14 @@ package
 
 		public static var initialPowerUpGap:Number = 100;
 		public static var powerUpGap:Number = 200;
+
+		// This is only pretending to be well programed; in reality I'm just
+		// using this as a list of the hard coded power up types. Actually this
+		// list is never looked at in code at all. I guess at some point that
+		// should be fixed. (Only the length is used).
+		public static var powerUps:Array = [
+			{ powerUpType:"ExtraBall" }
+		];
 
 		// Enemy spawn stuff
 		public static var spawnXLimits: Array = [10,60]; //[xFromLeft, xFromRight]

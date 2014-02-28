@@ -117,8 +117,8 @@ package
 		}
 
 		public function createPowerUpAt(pos:Array, t:int = -1):void {
-			if (t == -1) t = 0; //FP.rand(GC.enemies.length);
-			add(PowerUp.createPowerUp(pos, GC.powerUpVel, 0 != (mode & M_MUTED)));
+			if (t == -1) t = FP.rand(GC.powerUps.length);
+			add(PowerUp.createPowerUp(t, pos, GC.powerUpVel, 0 != (mode & M_MUTED)));
 		}
 
 		public function getSpawnPos():Array {
