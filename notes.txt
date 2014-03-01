@@ -1,6 +1,7 @@
 TODO:
 
 Power ups
+    * Increase ball level powerup
 New enemies
 Loose conditions
 Start Screen
