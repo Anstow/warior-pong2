@@ -14,7 +14,7 @@ TO MAKE:
 Ball/Bullet assets
 Power Up assets
 Score Box assets
-Score Box text fond
+Score Box text font
 Music
 
 
