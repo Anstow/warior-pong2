@@ -37,6 +37,7 @@ package
 			image = GC.getClippedImg(GC.playerGraphicsBoxes[ident]);
 			addGraphic(image);
 
+			noBallsFired = GC.playerStartBallsFired;
 			aimEntity = new AimEntity([x,y], ident);
 			if (world) world.add(aimEntity);
 		}
@@ -178,7 +179,18 @@ package
 
 		public function shoot():void {
 			if (world) {
-				world.add(new Ball(aimEntity.getPos(), [-Math.sin(angle)*GC.ballSpeed, -Math.cos(angle)*GC.ballSpeed], muted, id));
+				var a : Number = angle - GC.shotSpread * (noBallsFired-1) / 2.0;
+				var b : Number = angle - GC.shotStartOffset * (noBallsFired-1) / 2.0;
+				var pos:Array = aimEntity.getPos();
+				pos[0] += Math.sin(angle)*GC.shotStartRadius;
+				pos[1] += Math.cos(angle)*GC.shotStartRadius;
+				for (var i:int = 0; i < noBallsFired; i++) {
+					world.add(
+							new Ball(
+								[pos[0] - Math.sin(b + i*GC.shotStartOffset)*GC.shotStartRadius, pos[1] - Math.cos(b + i*GC.shotStartOffset)*GC.shotStartRadius],
+							   	[-Math.sin(a + i*GC.shotSpread)*GC.ballSpeed, -Math.cos(a + i*GC.shotSpread)*GC.ballSpeed],
+							   	muted, id));
+				}
 			}
 		}
 

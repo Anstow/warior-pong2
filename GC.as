@@ -66,6 +66,9 @@ package
 		public static var playerStartBallsFired:uint = 1;
 		public static var playerMinBallsFired:uint = 1;
 		public static var playerMaxBallsFired:uint = 5;
+		public static var shotSpread:Number = 0.02;
+		public static var shotStartOffset:Number = 0.5;
+		public static var shotStartRadius:Number = 10;
 		public static var playerGraphicsBoxes:Array = [
 			[0, 20, 70, 20],
 			[0, 60, 70, 20],
