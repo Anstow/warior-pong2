@@ -23,6 +23,8 @@ package
 		public var scoreBoxes:Array =  [];
 		public var combindedScoreBox:ScoreBox;
 
+		public var grid : Grid;
+
 		private var input:GameInput;
 
 		public var worldBuffer:BitmapData;
@@ -65,6 +67,10 @@ package
 			add(input);
 
 			this.loadLevelCallback = loadLevelCallback;	
+
+			grid = new Grid();
+			add(grid);
+
 			reset();
 		}
 

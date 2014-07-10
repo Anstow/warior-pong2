@@ -16,9 +16,19 @@ package
 	import net.flashpunk.graphics.Image;
 	public class GC
 	{
-		public static const windowHeight:int = 540;
 		public static const windowWidth:int = 960;
+		public static const windowHeight:int = 540;
 		public static const FPS:int = 60;
+
+		// Grid stuff
+
+		public static const gridOffsetX:int = 20;
+		public static const gridOffsetY:int = 20;
+
+		public static const gridWidth:int = 46;
+		public static const gridHeight:int = 25;
+
+		public static const gridRigidity : Number = 0.002;
 
 		// Input stuff
 		public static var inputKeys:Object = {
